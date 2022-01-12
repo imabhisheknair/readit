@@ -1,4 +1,4 @@
-apturl==0.5.2
+# apturl==0.5.2
 asgiref==3.4.1
 authy==2.2.6
 backports.entry-points-selectable==1.1.0
