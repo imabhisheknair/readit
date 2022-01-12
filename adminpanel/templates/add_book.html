@@ -1,0 +1,677 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>READit Admin - Books</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet" />
+    <!-- <script src="https://unpkg.com/dropzone"></script> -->
+    <script src="https://unpkg.com/cropperjs"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <style>
+        /* Ensure the size of the image fit the container perfectly */
+         img {
+            display: block;
+
+            /* This rule is very important, please don't ignore this */
+            max-width: 100%;
+        }
+        
+    </style>
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/adminpanel/">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-2">Readit Admin <sup>2</sup></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="/adminpanel/">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Books</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Books options:</h6>
+                        <a class="collapse-item" href="/adminpanel/books/view">View Books</a>
+                        <a class="collapse-item" href="/adminpanel/books/add">Add Books</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="true" aria-controls="collapseThree">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Genres</span>
+                </a>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Genres options:</h6>
+                        <a class="collapse-item" href="/adminpanel/genres/view">View Genres</a>
+                        <a class="collapse-item" href="/adminpanel/genres/add">Add Genres</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+                    aria-expanded="true" aria-controls="collapseFour">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Authors</span>
+                </a>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Authors options:</h6>
+                        <a class="collapse-item" href="/adminpanel/authors/view">View Authors</a>
+                        <a class="collapse-item" href="/adminpanel/authors/add">Add Authors</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
+                    aria-expanded="true" aria-controls="collapseFive">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Customers</span>
+                </a>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Customer options:</h6>
+                        <a class="collapse-item" href="/adminpanel/customer/view">View customers</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSix"
+                    aria-expanded="true" aria-controls="collapseSix">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Orders</span>
+                </a>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Order options:</h6>
+                        <a class="collapse-item" href="/adminpanel/orders/view">View Orders</a>
+                    </div>
+                </div>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Addons
+            </div>
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="/adminpanel/coupons">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Coupons</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/adminpanel/offers">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Offers</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/adminpanel/logout">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Logout</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                        </li>
+
+
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">READit Admin</span>
+                                <img class="img-profile rounded-circle" src="{% static 'img/undraw_profile.svg' %}">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-3 text-gray-800">Add New Book</h1>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="">
+
+                                <form class="row" name="addb" action="" method="POST" autocomplete="off"
+                                enctype="multipart/form-data"> 
+                                <div class="col-lg-6">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Book Title</label>
+                                            <input name="title" type="text" class="form-control" id="exampleInputEmail1"
+                                                aria-describedby="emailHelp" placeholder="Enter book title" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Book category</label>
+                                            <select class="form-control" id="exampleInputEmail1" name="genre" id=""
+                                                required>
+                                                <option value="">Select Category</option>
+                                                {% if genre %}
+                                                {% for g in genre %}
+                                                <option value="{{ g.id }}">{{ g.title }}</option>
+                                                {% endfor %}
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Book Author</label>
+                                            <select class="form-control" id="exampleInputEmail1" name="author" id=""
+                                                required>
+                                                <option value="">Select Author</option>
+                                                {% if auth %}
+                                                {% for a in auth %}
+                                                <option value="{{ a.id }}">{{ a.name }}</option>
+                                                {% endfor %}
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Book description</label>
+                                            <textarea class="form-control" id="exampleInputEmail1" name="desc" id=""
+                                                cols="30" rows="5" required></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Book Publisher</label>
+                                            <input name="publisher" type="text" class="form-control"
+                                                id="exampleInputEmail1" aria-describedby="emailHelp"
+                                                placeholder="Enter book publisher" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Book Language</label>
+                                            <input name="language" type="text" class="form-control"
+                                                id="exampleInputEmail1" aria-describedby="emailHelp"
+                                                placeholder="Enter book Language" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Book Stock</label>
+                                            <input name="stock" type="number" class="form-control"
+                                                id="exampleInputEmail1" aria-describedby="emailHelp"
+                                                placeholder="Enter book stock" required>
+                                        </div>
+
+                                </div>
+                                <div class="col-lg-6">
+
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Book Price</label>
+                                        <input name="price" type="number" onkeyup="return caldiscount()"
+                                            class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                            placeholder="Enter book price" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Book Discount in %</label>
+                                        <input name="discount" type="number" onkeyup="return caldiscount()"
+                                            class="form-control" value="0" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Book selling price</label>
+                                        <input name="lastp" type="text" class="form-control" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" readonly>
+                                    </div>
+
+                                    <label for="exampleInputEmail1">Book Image</label>
+
+                                    <div class="form-group">
+                                        <div class="outputImg" style="display: inline-block;">
+
+                                        </div>
+
+                                        <input name="image" type="file" class="form-control image" id="image1"
+                                            aria-describedby="emailHelp" accept="image/*" required>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="image1" type="file" class="form-control" id="image2"
+                                            aria-describedby="emailHelp" accept="image/*" required>
+
+                                    </div>
+                                    <div class="form-group">
+
+
+                                        <input name="image2" type="file" class="form-control" id="image3"
+                                            aria-describedby="emailHelp" accept="image/*" required>
+
+                                    </div>
+
+
+
+                                </div>
+                                <div class="col-lg-12">
+                                    <center><button type="submit" class="btn btn-primary">Add Book</button>
+                                    </center>
+                                </div>
+                            </form>
+                                <div class="modal fade" id="modal" tabindex="-1" role="dial=og"
+                                    aria-labelledby="modalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-md" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalLabel">Crop image</h5>
+                                                <button type="button" class="close" data-bs-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="img-container">
+                                                    <div class="row">
+                                                        <div class="col-md-8">
+                                                            <!--  default image where we will set
+                the src via jquery-->
+                                                            <img id="output1">
+                                                            <img id="output2">
+                                                            <img id="output3">
+
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="preview"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancel</button>
+                                                <button type="button" class="btn btn-primary" id="crop">Crop</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Your Website 2020</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="/adminpanel/logout">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var bs_modal = $('#modal');
+            var image1 = document.getElementById('output1');
+            var image2 = document.getElementById('output2');
+            var image3 = document.getElementById('output3');
+            var cropper, reader, file;
+
+            function deleteAll() {
+                $('#output1').attr("src", "");
+                $('#output2').attr("src", "");
+                $('#output3').attr("src", "");
+            }
+            $("body").on("change", "#image1", function (e) {
+                var files = e.target.files;
+                var done = function (url) {
+                    deleteAll()
+                    image1.src = url;
+                    bs_modal.modal('show');
+                    showCropper(image1)
+                };
+
+
+                if (files && files.length > 0) {
+                    file = files[0];
+                    let fileType = file['type'];
+                    var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+                    if ($.inArray(fileType, validImageTypes) < 0) {
+                        alertify.error("Choose image file")
+                        $(this).val('')
+                        return false;
+                    }
+
+                    if (URL) {
+                        done(URL.createObjectURL(file));
+                    } else if (FileReader) {
+                        reader = new FileReader();
+                        reader.onload = function (e) {
+                            done(reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+
+
+            $("body").on("change", "#image2", function (e) {
+                var files = e.target.files;
+                var done = function (url) {
+                    deleteAll()
+                    image2.src = url;
+                    bs_modal.modal('show');
+                    showCropper(image2)
+                };
+
+
+                if (files && files.length > 0) {
+                    file = files[0];
+
+                    let fileType = file['type'];
+                    var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+                    if ($.inArray(fileType, validImageTypes) < 0) {
+                        alertify.error("Choose image file")
+                        $(this).val('')
+                        return false;
+                    }
+
+                    if (URL) {
+                        done(URL.createObjectURL(file));
+                    } else if (FileReader) {
+                        reader = new FileReader();
+                        reader.onload = function (e) {
+                            done(reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+
+            $("body").on("change", "#image3", function (e) {
+                var files = e.target.files;
+                var done = function (url) {
+                    deleteAll()
+                    image3.src = url;
+                    bs_modal.modal('show');
+                    showCropper(image3)
+                };
+
+
+                if (files && files.length > 0) {
+                    file = files[0];
+
+                    let fileType = file['type'];
+                    var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+                    if ($.inArray(fileType, validImageTypes) < 0) {
+                        alertify.error("Choose image file")
+                        $(this).val('')
+                        return false;
+                    }
+
+                    if (URL) {
+                        done(URL.createObjectURL(file));
+                    } else if (FileReader) {
+                        reader = new FileReader();
+                        reader.onload = function (e) {
+                            done(reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+
+
+
+            function showCropper(cropImg) {
+                cropper = new Cropper(cropImg, {
+                    aspectRatio: 9/12,
+                    viewMode: 3,
+                    cropBoxResizable: true,
+                    minCanvasWidth: 10,
+                    minCanvasHeight: 10,
+                    ready: function() {
+                        generatePreview();
+                    
+                    },
+                    preview: '.preview'
+                    
+                });
+            }
+
+
+            bs_modal.on('hidden.bs.modal', function () {
+                cropper.destroy();
+                cropper = null;
+            });
+
+            $("#crop").click(function () {
+                canvas = cropper.getCroppedCanvas({
+                    width: 160,
+                    height: 160,
+                });
+
+                canvas.toBlob(function (blob) {
+                    url = URL.createObjectURL(blob);
+                    var reader = new FileReader();
+                    reader.readAsDataURL(blob);
+                    reader.onloadend = function () {
+                        var base64data = reader.result;
+                        let clength = $('.cropped_image').length + 1
+                        console.log(clength)
+                        $('.outputImg').append(`
+        
+            <input class="cropped_image" name="cropped_image${clength}" type="hidden" value="${base64data}">
+            <img src="${base64data}" style="width: 140px; height: 170px; display: inline-block;">
+            
+            `)
+                        bs_modal.modal('hide');
+
+                        // $.ajax({
+                        //     method: "POST",
+                        //     dataType: "json",
+                        //     url: "/demo",
+                        //     data: {image: base64data},
+                        //     success: function(data) { 
+                        //         alert("success upload image");
+                        //     }
+                        // });
+                    };
+                });
+            });
+
+        </script>
+
+        <script>
+
+            function caldiscount() {
+                var price = document.addb.price.value;
+                var discount = document.addb.discount.value;
+                if (price == 0) {
+                    document.addb.lastp.value = "Enter Book Price";
+                } else {
+                    if (discount <= 0) {
+                        document.addb.lastp.value = price;
+                    } else {
+                        var calc = price - ((price / 100) * discount);
+                        document.addb.lastp.value = calc;
+                    }
+                }
+            }
+        </script>
+
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+
+        <!-- Bootstrap core JavaScript-->
+
+        <!-- Core plugin JavaScript-->
+        <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+        <!-- Page level plugins -->
+        <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+
+</body>
+
+</html>

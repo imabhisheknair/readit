@@ -1,0 +1,809 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+
+<!-- Mirrored from template.hasthemes.com/pustok/pustok/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Dec 2021 14:10:34 GMT -->
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>MyAccount - Readit</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Use Minified Plugins Version For Fast Page Load -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+	<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/plugins.css' %}" />
+	<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/main.css' %}" />
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'image/favicon.ico' %}">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+</head>
+
+<body>
+    {% if messages %}
+    {% for message in messages %}
+        <script>
+            
+            alertify.success('{{message}}');
+            
+        </script>
+        {% endfor %}
+    {% endif %}
+	<div class="site-wrapper" id="top">
+		<div class="site-header d-none d-lg-block">
+			<div class="header-middle pt--10 pb--10">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-lg-3 ">
+							<a href="http://127.0.0.1:8000/" class="site-brand">
+								<img src="{% static 'image/logo.png' %}" alt="">
+							</a>
+						</div>
+						<div class="col-lg-3">
+							<div class="header-phone ">
+								<div class="icon">
+									<i class="fas fa-headphones-alt"></i>
+								</div>
+								<div class="text">
+									<p>Free Support 24/7</p>
+									<p class="font-weight-bold number">+91-911-387-7137</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="main-navigation flex-lg-right">
+								<ul class="main-menu menu-right ">
+									<li class="menu-item has-children">
+										<a href="javascript:void(0)">Home</a>
+									
+									</li>
+									<!-- Shop -->
+									<li class="menu-item">
+										<a href="javascript:void(0)">shop </a>
+										
+									</li>
+                                    <li class="menu-item">
+										<a href="/wishlist">Wishlist </a>
+										
+									</li>
+									{% if user != 0 %}
+								<li class="menu-item"><a href="/account/logout">logout</a></li>
+								{% endif %}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="header-bottom pb--10">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-lg-3">
+							<nav class="category-nav   ">
+								<div>
+									<a href="javascript:void(0)" class="category-trigger"><i
+											class="fa fa-bars"></i>Browse
+										categories</a>
+									<ul class="category-menu">
+										<li class="cat-item has-children">
+											<a href="#">Authors</a>
+											<ul class="sub-menu">
+                                                {% for author in auth %}
+												<li><a href="#">{{author.name}}</a></li>
+                                                {% endfor %}
+											</ul>
+										</li>
+                                        <li class="cat-item has-children">
+											<a href="#">Genres</a>
+											<ul class="sub-menu">
+                                                {% for gen in genres %}
+												<li><a href="#">{{gen.title}}</a></li>
+                                                {% endfor %}
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</nav>
+						</div>
+						<div class="col-lg-5">
+							<div class="header-search-block">
+								<form action="/store/search" method="POST"> {% csrf_token %}
+                                    <input type="text" name="q" placeholder="Search entire store here">
+                                    <button type="submit">Search</button>
+                                </form>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="main-navigation flex-lg-right">
+								<div class="cart-widget">
+									<div class="login-block">
+										{% if user != 0 %}
+										<a class="font-weight">Hi,</a><br>
+										<a style="text-transform: capitalize;" href="/account/me" class="font-weight-bold">{{ user.fullname }}</a>
+										{% else %}
+										<a href="/account/login" class="font-weight-bold">Login </a> /
+										<span></span><a href="/account/register">Register</a>
+										{% endif %} <br>
+										
+									</div>
+									<a href="/cart">
+									<div class="cart-block">
+										<div class="cart-total">
+											<span class="text-number">
+												{{numitem}}
+											</span>
+											<span class="text-item">
+												Shopping Cart
+											</span>
+											<span class="price">
+												{% if totamt != 0 %}
+												&#x20b9;{{totamt}}
+                                                {% else %}
+                                                &#x20b9;{{totamt}}
+                                                {% endif %}
+											</span>
+										</div>
+																			</div>
+								</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="site-mobile-menu">
+			<header class="mobile-header d-block d-lg-none pt--10 pb-md--10">
+				<div class="container">
+					<div class="row align-items-sm-end align-items-center">
+						<div class="col-md-4 col-7">
+							<a href="/" class="site-brand">
+								<img src="{% static 'image/logo.png' %}" alt="">
+							</a>
+						</div>
+						<div class="col-md-5 order-3 order-md-2">
+							<nav class="category-nav   ">
+								<div>
+									<a href="javascript:void(0)" class="category-trigger"><i
+											class="fa fa-bars"></i>Browse
+										categories</a>
+									<ul class="category-menu">
+										<li class="cat-item has-children">
+											<a href="#">Authors</a>
+											<ul class="sub-menu">
+                                                {% for author in auth %}
+												<li><a href="#">{{author.name}}</a></li>
+                                                {% endfor %}
+											</ul>
+										</li>
+                                        <li class="cat-item has-children">
+											<a href="#">Genres</a>
+											<ul class="sub-menu">
+                                                {% for gen in genres %}
+												<li><a href="#">{{gen.title}}</a></li>
+                                                {% endfor %}
+											</ul>
+										</li>
+										
+										
+									</ul>
+								</div>
+							</nav>
+						</div>
+						<div class="col-md-3 col-5  order-md-3 text-right">
+							<div class="mobile-header-btns header-top-widget">
+								<ul class="header-links">
+									<li class="sin-link">
+										<a href="/cart" class="cart-link link-icon"><i class="ion-bag"></i></a>
+									</li>
+									<li class="sin-link">
+										<a href="javascript:" class="link-icon hamburgur-icon off-canvas-btn"><i
+												class="ion-navicon"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+			<!--Off Canvas Navigation Start-->
+			<aside class="off-canvas-wrapper">
+				<div class="btn-close-off-canvas">
+					<i class="ion-android-close"></i>
+				</div>
+				<div class="off-canvas-inner">
+					<!-- search box start -->
+					<div class="search-box offcanvas">
+						<form>
+							<input type="text" placeholder="Search Here">
+							<button class="search-btn"><i class="ion-ios-search-strong"></i></button>
+						</form>
+					</div>
+					<!-- search box end -->
+					<!-- mobile menu start -->
+					<div class="mobile-navigation">
+						<!-- mobile menu navigation start -->
+						<nav class="off-canvas-nav">
+							<ul class="mobile-menu main-mobile-menu">
+								<li class="menu-item">
+									<a href="/">Home</a>
+								</li>
+                                <li class="menu-item">
+									<a href="/store/search">Shop</a>
+								</li>
+								{% if user != 0 %}
+								<li class="menu-item">
+                                    <a href="/account/me">My Account</a>
+                                </li>
+								<li class="menu-item">
+                                    <a href="/account/logout">logout</a>
+                                </li>
+                                {% else %}
+                                <li class="menu-item">
+                                    <a href="/account/login">Login</a>
+                                </li>
+                                <li class="menu-item"> 
+                                    <a href="/account/register">Register</a>
+                                </li>
+								{% endif %}
+							</ul>
+						</nav>
+						<!-- mobile menu navigation end -->
+					</div>
+					<!-- mobile menu end -->
+					
+					<div class="off-canvas-bottom">
+						<div class="contact-list mb--10">
+							<a href="#" class="sin-contact"><i class="fas fa-mobile-alt"></i>+91-911-387-7137</a>
+							<a href="#" class="sin-contact"><i class="fas fa-envelope"></i>contact@readit.com</a>
+						</div>
+					</div>
+				</div>
+			</aside>
+			<!--Off Canvas Navigation End-->
+		</div>
+		<div class="sticky-init fixed-header common-sticky">
+			<div class="container d-none d-lg-block">
+				<div class="row align-items-center">
+					<div class="col-lg-4">
+						<a href="/" class="site-brand">
+							<img src="{% static 'image/logo.png' %}" alt="">
+						</a>
+					</div>
+					<div class="col-lg-8">
+						<div class="main-navigation flex-lg-right">
+							<ul class="main-menu menu-right ">
+								<li class="menu-item">
+									<a href="">Home</a>
+									
+								</li>
+								<!-- Shop -->
+								<li class="menu-item">
+									<a href="javascript:void(0)">shop</a>
+									
+								</li>
+                                <li class="menu-item">
+									<a href="/wishlist">Wishlist</a>
+									
+								</li>
+								<!-- Pages -->
+								
+								{% if request.session.user %}
+								<li class="menu-item"><a href="/account/logout">logout</a></li>
+								{% endif %}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<section class="breadcrumb-section">
+			<h2 class="sr-only">Site Breadcrumb</h2>
+			<div class="container">
+				<div class="breadcrumb-contents">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/">Home</a></li>
+							<li class="breadcrumb-item active">My Account</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</section>
+		<div class="page-section inner-page-sec-padding">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="row">
+							<!-- My Account Tab Menu Start -->
+							<div class="col-lg-3 col-12">
+								<div class="myaccount-tab-menu nav" role="tablist">
+									<a href="#dashboad" class="active" data-bs-toggle="tab"><i
+											class="fas fa-tachometer-alt"></i>
+										Dashboard</a>
+									<a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Orders</a>
+									<a href="#download" data-bs-toggle="tab"><i class="fas fa-heart"></i> Wishlist</a>
+									
+									<a href="#address-edit" data-bs-toggle="tab"><i class="fa fa-map-marker"></i>
+										address</a>
+									<a href="#account-info" data-bs-toggle="tab"><i class="fa fa-user"></i> Account
+										Details</a>
+									<a href="/account/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+								</div>
+							</div>
+							<!-- My Account Tab Menu End -->
+							<!-- My Account Tab Content Start -->
+							<div class="col-lg-9 col-12 mt--30 mt-lg--0">
+								<div class="tab-content" id="myaccountContent">
+									<!-- Single Tab Content Start -->
+									<div class="tab-pane fade show active" id="dashboad" role="tabpanel">
+										<div class="myaccount-content">
+											<h3>Dashboard</h3>
+											<div class="welcome mb-20">
+												<p>Hello, <strong style="text-transform: capitalize;">{{user.fullname}}</strong> (If Not <strong style="text-transform: capitalize;">{{user.fullname}}
+														!</strong><a href="logout" class="logout">
+														Logout</a>)</p>
+											</div>
+											<p class="mb-0">From your account dashboard. you can easily check &amp; view
+												your
+												recent orders, manage your shipping and billing addresses and edit your
+												password and account details.</p>
+										</div>
+									</div>
+									<!-- Single Tab Content End -->
+									<!-- Single Tab Content Start -->
+									<div class="tab-pane fade" id="orders" role="tabpanel">
+										<div class="myaccount-content">
+											<h3>Orders</h3>
+											<div class="myaccount-table table-responsive text-center">
+												{% if orders != 0 %}
+												<table class="table table-bordered">
+													<thead class="thead-light">
+														<tr>
+															<th>Book(s)</th>
+															<th>Date</th>
+															<th>Status</th>
+															<th>Total</th>
+															{% if count == 1 %}
+															<th>Actions</th>
+															{% endif %}
+															
+														</tr>
+													</thead>
+													<tbody>
+														{% for order in orders %}
+														<tr>
+															<td>
+																{% for item in items %}
+																{% if item.order_id == order.id %}
+																	<a href="/book/{{item.book.title.split|join:'_'}}">{{item.book.title}}</a> X {{item.qty}} <br>
+																{% endif %}
+																{% endfor %}
+															</td>
+															<td>{{order.date_added}}</td>
+															<td>
+																{% if order.is_active == 0 %}
+																	Canecelled
+																{% else %}
+																	{{order.status}}
+																{% endif %}
+															</td>
+															<td>&#8377;{{order.total}}</td>
+															
+																{% if order.is_active == 1 and order.status == 'Placed' %}
+																<td>
+																<button data-bs-toggle="modal" data-bs-target="#exampleModalCancel{{order.id}}">Cancel</button> 
+															</td> 
+															{% elif count == 1 %}
+															<td>
+																
+															</td>
+																{% endif %}
+															
+														</tr>
+														<div class="modal fade" id="exampleModalCancel{{order.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+															<div class="modal-dialog">
+															  <div class="modal-content">
+																<div class="modal-header">
+																  <h5 class="modal-title" id="exampleModalLabel">Order cancellation</h5>
+																  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																</div>
+																<div class="modal-body">
+																	<h5>Are you sure to cancel the order?</h5>
+																</div>
+																<div class="modal-footer">
+																  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+																 <form action="/account/orders/cancel/{{order.id}}">
+																  <button type="submit" class="btn btn-danger">Cancel</button>
+																</form> 
+																</div>
+															  </div>
+															</div>
+														  </div>
+														{% endfor %}
+													</tbody>
+												</table>
+												{% else %}
+												<center><p style="color: black;"><strong>You don't have any orders yet!</strong></p></center>
+												{% endif %}
+											</div>
+										</div>
+									</div>
+									<!-- Single Tab Content End -->
+									<!-- Single Tab Content Start -->
+									<div class="tab-pane fade" id="download" role="tabpanel">
+										<div class="myaccount-content">
+											<h3>Wishlist</h3>
+											{% if wishlist != 0 %}
+											<div class="myaccount-table table-responsive text-center">
+												<table class="table table-bordered">
+													<thead class="thead-light">
+														<tr>
+															<th>Image</th>
+															<th>Title</th>
+															<th>Price</th>
+															<th>Action</th>
+														</tr>
+													</thead>
+													<tbody>
+														{% for item in wishlist %}
+														<tr>
+															<td><img src="{% static item.book.image.url %}" height="130" width="80" alt=""></td>
+															<td>{{item.book.title}}</td>
+															<td>&#8377; {{item.book.sprice}}</td>
+															<td><a href="/cart/move/{{item.id}}?next=/account/me" class="btn">Move to Cart</a></td>
+														</tr>
+														{% endfor %}
+													</tbody>
+												</table>
+											</div>
+											{% else %}
+											{%  endif %}<center><p style="color: black;"><strong>Your wishlist is empty!</strong></p></center>
+										</div>
+									</div>
+									<!-- Single Tab Content End -->
+									<!-- Single Tab Content Start -->
+									<div class="tab-pane fade" id="payment-method" role="tabpanel">
+										<div class="myaccount-content">
+											<h3>Payment Method</h3>
+											<p class="saved-message">You Can't Saved Your Payment Method yet.</p>
+										</div>
+									</div>
+									<!-- Single Tab Content End -->
+									<!-- Single Tab Content Start -->
+									<div class="tab-pane fade" id="address-edit" role="tabpanel">
+										<div class="myaccount-content">
+											<div class="row">
+											<h3>My Address</h3>
+											{% if address != 0 %}
+												{% for item in address %}
+												<div class="col-lg-5 mb-3" style="border: 1px solid; margin-right: 10px; padding: 15px;">
+												<address>
+													<p><strong>{{item.name}}</strong></p>
+													<p>{{item.address}}<br>
+														{{item.city}}, {{item.state}} {{item.zip}}.</p>
+													<p>Mobile: {{item.mobile}}</p>
+												</address> 
+												<button  data-bs-toggle="modal" data-bs-target="#exampleModal{{item.id}}" class="btn btn-outlined" style="width: 80px !important;"><i class="fa fa-edit"></i>Edit
+													Address</button>
+													
+													<button data-bs-toggle="modal" data-bs-target="#exampleModalDelete{{item.id}}" type="submit" class="btn btn-outlined">Delete</button>
+												
+												</div>
+												<!-- Modal -->
+  <div class="modal fade" id="exampleModal{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Edit Address</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<form class="inline-form" method="POST" action="address/edit/{{item.id}}"> {% csrf_token %}
+				<div class="mb-3">
+				  <input name="fname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{item.name}}" placeholder="Enter Full Name">
+				</div>
+				<div class="col-lg-12 col-12 mb--30">
+				  <input name="state" value="{{item.state}}" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter State/Province">
+				</div>
+				<div class="col-lg-12 col-12 mb--30">
+					<input name="city" value="{{item.city}}" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter City">
+				  </div>
+				  <div class="col-lg-12 col-12 mb--30">
+					<textarea name="address" class="form-control" id="" cols="30" rows="3" placeholder="Enter Address">{{item.address}}</textarea>
+				  </div>
+				  <div class="col-lg-12 col-12 mb--30">
+					<input name="zip" value="{{item.zip}}" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Zip code">
+				  </div>
+				  <div class="col-lg-12 col-12 mb--30">
+					<input name="phone" value="{{item.mobile}}" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Phone number">
+				  </div>
+				
+			  
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		  <button type="submit" class="btn btn-primary">Save Address</button>
+		</form>
+		</div>
+	  </div>
+	</div>
+  </div>
+  <!-- delete modal -->
+
+  <div class="modal fade" id="exampleModalDelete{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Delete Address</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<h5>Are you sure to delete the address?</h5>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		 <form action="address/delete/{{item.id}}">
+		  <button type="submit" class="btn btn-danger">Delete</button>
+		</form> 
+		</div>
+	  </div>
+	</div>
+  </div>
+
+
+
+
+												{% endfor %}
+											{% else %}
+											<p class="mb-0">You haven't added any address.</p>
+											{% endif %}
+										</div>
+											<br><br>
+											<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+	Add Address
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Add an Address</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<form class="inline-form" method="POST" action="address/add"> {% csrf_token %}
+				<div class="mb-3">
+				  <input name="fname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Full Name">
+				</div>
+				<div class="col-lg-12 col-12 mb--30">
+				  <input name="state" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter State/Province">
+				</div>
+				<div class="col-lg-12 col-12 mb--30">
+					<input name="city" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter City">
+				  </div>
+				  <div class="col-lg-12 col-12 mb--30">
+					<textarea name="address" class="form-control" id="" cols="30" rows="3" placeholder="Enter Address"></textarea>
+				  </div>
+				  <div class="col-lg-12 col-12 mb--30">
+					<input name="zip" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Zip code">
+				  </div>
+				  <div class="col-lg-12 col-12 mb--30">
+					<input name="phone" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Phone number">
+				  </div>
+				
+			  
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		  <button type="submit" class="btn btn-primary">Save Address</button>
+		</form>
+		</div>
+	  </div>
+	</div>
+  </div>
+									
+										</div>
+									</div>
+									<!-- Single Tab Content End -->
+									<!-- Single Tab Content Start -->
+									<div class="tab-pane fade" id="account-info" role="tabpanel">
+										<div class="myaccount-content">
+											<h3>Account Details</h3>
+											<div class="account-details-form">
+												<form action="#">
+													<div class="row">
+														<div class="col-lg-6 col-12  mb--30">
+															<input id="first-name" value="{{user.fullname}}" placeholder="Full Name" type="text">
+														</div>
+														<div class="col-lg-6 col-12  mb--30">
+															<input id="email" value="{{user.email}}" placeholder="Email Address" type="email">
+														</div>
+														<div class="col-lg-6 col-12  mb--30">
+															<input id="phone" value="{{user.phone}}" placeholder="Phone number" type="text">
+														</div>
+														<div class="col-12 mb--30">
+															<button class="btn btn--primary profile-update" data-action="/account/update">Save Changes</button>
+														</div>
+														<div class="col-12  mb--30">
+															<h4>Password change</h4>
+														</div>
+														<div class="col-12  mb--30">
+															<input id="current-pwd" placeholder="Current Password"
+																type="password">
+														</div>
+														<div class="col-lg-6 col-12  mb--30">
+															<input id="new-pwd" placeholder="New Password"
+																type="password">
+														</div>
+														<div class="col-lg-6 col-12  mb--30">
+															<input id="confirm-pwd" placeholder="Confirm Password"
+																type="password">
+														</div>
+														<div class="col-12">
+															<button class="btn btn--primary passw-update" data-action="/account/update_pass">Update Password</button>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+									<!-- Single Tab Content End -->
+								</div>
+							</div>
+							<!-- My Account Tab Content End -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!--=================================
+    Footer Area
+===================================== -->
+<footer class="site-footer">
+	<div class="container">
+		<div class="row justify-content-between  section-padding">
+			<div class=" col-xl-3 col-lg-4 col-sm-6">
+				<div class="single-footer pb--40">
+					<div class="brand-footer footer-title">
+						<img src="{% static 'image/logo.png' %}" alt="">
+					</div>
+					<div class="footer-contact">
+						<p><span class="label">Address:</span><span class="text">Example Street 98, HH2 BacHa, New
+								York, USA</span></p>
+						<p><span class="label">Phone:</span><span class="text">+91-911-387-7137</span></p>
+						<p><span class="label">Email:</span><span class="text">suport@readit.com</span></p>
+					</div>
+				</div>
+			</div>
+			<div class=" col-xl-3 col-lg-2 col-sm-6">
+				<div class="single-footer pb--40">
+					<div class="footer-title">
+						
+					</div>
+				</div>
+			</div>
+			<div class=" col-xl-3 col-lg-2 col-sm-6">
+				<div class="single-footer pb--40">
+					<div class="footer-title">
+					   
+					</div>
+				</div>
+			</div>
+			<div class=" col-xl-3 col-lg-4 col-sm-6">
+				<div class="footer-title">
+					<h3>Newsletter Subscribe</h3>
+				</div>
+				<div class="newsletter-form mb--30">
+					<form onsubmit="subscribe()">
+						<input id="emailsub" type="email" class="form-control" placeholder="Enter Your Email Address Here..." required>
+						<button type="submit" class="btn btn--primary w-100">Subscribe</button>
+					</form>
+				</div>
+				<div class="social-block">
+					<h3 class="title">STAY CONNECTED</h3>
+					<ul class="social-list list-inline">
+						<li class="single-social facebook"><a href="#"><i class="ion ion-social-facebook"></i></a>
+						</li>
+						<li class="single-social twitter"><a href="#"><i class="ion ion-social-twitter"></i></a></li>
+						<li class="single-social google"><a href="#"><i
+									class="ion ion-social-googleplus-outline"></i></a></li>
+						<li class="single-social youtube"><a href="#"><i class="ion ion-social-youtube"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<div class="container">
+			<!-- <p class="copyright-heading">This Website is made with 3 by www.readit.in</p> -->
+			<a href="#" class="payment-block">
+				<img src="{% static 'image/icon/payment.png' %}" alt="">
+			</a>
+			<p class="copyright-text">Copyright © 2021 <a href="#" class="author">Readit</a>. All Right Reserved.
+				<br>
+				Developed By Readit</p>
+		</div>
+	</div>
+	<script>
+		function subscribe(){
+			alertify.success('Subscribed!');
+			return false;
+		}
+	</script>
+</footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+     <script>
+        $('.profile-update').click(function(e){
+    e.preventDefault();
+    var path = $(this).data('action');
+	var fullname = $('#first-name').val()
+	var emailid = $('#email').val()
+	var phonenum = $('#phone').val()
+    $.ajax({
+        url : path,
+        type: 'GET',
+		data: {
+			fname: fullname,
+			email: emailid,
+			phone: phonenum
+		},
+        dataType : 'json',
+        success: function(response){
+            if (response.status == 'success'){
+                alertify.success(response.message)
+            } else {
+				alertify.error(response.message)
+			}
+        }
+    })
+})
+
+$('.passw-update').click(function(e){
+    e.preventDefault();
+    var path = $(this).data('action');
+	var cpass = $('#current-pwd').val()
+	var npass = $('#new-pwd').val()
+	var confpass = $('#confirm-pwd').val()
+	if (cpass == ''){
+		alertify.error('Enter current password')
+	}
+	else if (npass == ''){
+		alertify.error('Enter new password')
+	}
+	else if (npass != confpass){
+		alertify.error('Password does not match')
+	}
+
+	 else {
+		$.ajax({
+			url : path,
+			type: 'GET',
+			data: {
+				cpass: cpass,
+				npass: npass
+			},
+			dataType : 'json',
+			success: function(response){
+				if (response.status == 'success'){
+					alertify.success(response.message)
+				} else {
+					alertify.error(response.message)
+				}
+			}
+		})
+	}
+})
+</script>
+	<!-- Use Minified Plugins Version For Fast Page Load -->
+	<script src="{% static 'js/plugins.js' %}"></script>
+	<script src="{% static 'js/ajax-mail.js' %}"></script>
+	<script src="{% static 'js/custom.js' %}"></script>
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+</body>
+
+
+<!-- Mirrored from template.hasthemes.com/pustok/pustok/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Dec 2021 14:10:34 GMT -->
+</html>

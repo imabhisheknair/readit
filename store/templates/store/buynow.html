@@ -1,0 +1,776 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+
+<!-- Mirrored from template.hasthemes.com/pustok/pustok/checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Dec 2021 14:10:34 GMT -->
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Checkout - READit</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Use Minified Plugins Version For Fast Page Load -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+ 
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+	<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/plugins.css' %}" />
+	<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/main.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/bootstrap-msg.css' %}">
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'image/favicon.ico' %}">
+
+	<style>
+		.btn-address{
+			background: navy;
+			color: white;
+			padding: 10px;
+			float: right;
+		}
+		.disable {
+			display: none;
+		}
+		.paypal-buttons {
+			position: sticky !important;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="site-wrapper" id="top">
+		<div class="site-header header-2 mb--20 d-none d-lg-block">
+			<div class="header-middle pt--10 pb--10">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-lg-3">
+							<a href="/" class="site-brand">
+								<img src="{% static 'image/logo.png' %}" alt="">
+							</a>
+						</div>
+						<div class="col-lg-5">
+							<div class="header-search-block">
+								<form action="/store/search" method="GET">
+                                    <input type="text" name="q" placeholder="Search entire store here">
+                                    <button type="submit">Search</button>
+                                </form>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="main-navigation flex-lg-right">
+								<div class="cart-widget">
+									<div class="login-block">
+										{% if user != 0 %}
+										<a class="font-weight">Hi,</a><br>
+										<a style="text-transform: capitalize;" href="account/me" class="font-weight-bold">{{ user.fullname }}</a>
+										{% else %}
+										<a href="account/login" class="font-weight-bold">Login </a> /
+										<span></span><a href="account/register">Register</a>
+										{% endif %} <br>
+										
+									</div>
+                                    <a href="/cart">
+									<div class="cart-block">
+										<div class="cart-total">
+											<span class="text-number numitem">
+												{{numitem}}
+											</span>
+											<span class="text-item">
+												Shopping Cart
+											</span>
+											<span class="price cartsum" id="cartsum">
+                                                {% if totamt != 0 %}
+												&#x20b9;{{totamt}}
+												<i class="fas fa-chevron-down"></i>
+                                                {% else %}
+                                                &#x20b9;{{totamt}}
+												<i class="fas fa-chevron-down"></i>
+                                                {% endif %}
+											</span>
+										</div>
+										
+									</div>
+                                    </a>    
+								</div>
+							</div>
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<div class="sticky-init fixed-header common-sticky">
+			<div class="container d-none d-lg-block">
+				<div class="row align-items-center">
+					<div class="col-lg-4">
+						<a href="/" class="site-brand">
+							<img src="{% static 'image/logo.png' %}" alt="">
+						</a>
+					</div>
+					<div class="col-lg-8">
+						<div class="main-navigation flex-lg-right">
+							<ul class="main-menu menu-right ">
+								<li class="menu-item has-children">
+									<a href="/">Home</a>
+									
+								</li>
+								<!-- Shop -->
+								
+								<li class="menu-item">
+									<a href="/store/search">Shop</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<section class="breadcrumb-section">
+			<h2 class="sr-only">Site Breadcrumb</h2>
+			<div class="container">
+				<div class="breadcrumb-contents">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/">Home</a></li>
+							<li class="breadcrumb-item active">Checkout</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</section>
+		<main id="content" class="page-section inner-page-sec-padding-bottom space-db--20">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<!-- Checkout Form s-->
+						<div class="checkout-form">
+							<div class="row row-40">
+								<div class="col-12">
+									<h1 class="quick-title">Checkout</h1>
+									<!-- Slide Down Trigger  -->
+									<!-- <div class="checkout-quick-box">
+										<p><i class="far fa-sticky-note"></i>Returning customer? <a href="javascript:"
+												class="slide-trigger" data-target="#quick-login">Click
+												here to login</a></p>
+									</div> -->
+									<!-- Slide Down Blox ==> Login Box  -->
+									<!-- <div class="checkout-slidedown-box" id="quick-login">
+										<form action="https://template.hasthemes.com/pustok/pustok/">
+											<div class="quick-login-form">
+												<p>If you have shopped with us before, please enter your details in the
+													boxes below. If you are a new
+													customer
+													please
+													proceed to the Billing & Shipping section.</p>
+												<div class="form-group">
+													<label for="quick-user">Username or email *</label>
+													<input type="text" placeholder="" id="quick-user">
+												</div>
+												<div class="form-group">
+													<label for="quick-pass">Password *</label>
+													<input type="text" placeholder="" id="quick-pass">
+												</div>
+												<div class="form-group">
+													<div class="d-flex align-items-center flex-wrap">
+														<a href="#" class="btn btn-outlined me-3">Login</a>
+														<div class="d-inline-flex align-items-center">
+															<input type="checkbox" id="accept_terms" class="mb-0 mx-1">
+															<label for="accept_terms" class="mb-0">I’ve read and accept
+																the terms &amp; conditions</label>
+														</div>
+													</div>
+													<p><a href="javascript:" class="pass-lost mt-3">Lost your
+															password?</a></p>
+												</div>
+											</div>
+										</form>
+									</div> -->
+									<!-- Slide Down Trigger  -->
+									<div class="checkout-quick-box">
+										<p><i class="far fa-sticky-note"></i>Have a coupon? <a href="javascript:"
+												class="slide-trigger" data-target="#quick-cupon">
+												Click here to enter your code</a></p>
+									</div>
+									<!-- Slide Down Blox ==> Cupon Box -->
+									<div class="checkout-slidedown-box" id="quick-cupon">
+											<div class="checkout_coupon">
+												{% if coupon != 0 %}
+												
+												<button class="remove-coupon" data-product="{{item.book.id}}" data-action="/buynow/remove-coupon" style="margin-right: 10px; margin-left: -11px; height: 10px; width: 10px;"><i class="far fa-times-circle"></i></button>
+												<input type="text" value="{{coupon_code}}" id="coupon-code" class="mb-0" placeholder="Coupon Code" disabled>
+												{% else %}
+												<button class="remove-coupon disable" data-product="{{item.book.id}}" data-action="/buynow/remove-coupon" style="margin-right: 10px; margin-left: -11px; height: 10px; width: 10px;"><i class="far fa-times-circle"></i></button>
+												<input type="text" id="coupon-code" class="mb-0" placeholder="Coupon Code">
+												{% endif %}
+												<button data-action="/buynow/applycoupon" data-product="{{item.book.id}}" class="btn btn-outlined apply-coupon">Apply coupon</button>
+											</div>
+									</div>
+								</div>
+								<div class="col-lg-7 mb--20">
+									<!-- Billing Address -->
+									<div id="billing-form" class="mb-40">
+										<h4 class="checkout-title">Billing Address</h4>
+										<!-- <div class="row">
+											<div class="col-md-6 col-12 mb--20">
+												<label>First Name*</label>
+												<input type="text" placeholder="First Name">
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label>Last Name*</label>
+												<input type="text" placeholder="Last Name">
+											</div>
+											<div class="col-12 mb--20">
+												<label>Company Name</label>
+												<input type="text" placeholder="Company Name">
+											</div>
+											<div class="col-12 col-12 mb--20">
+												<label>Country*</label>
+												<select class="nice-select">
+													<option>Bangladesh</option>
+													<option>China</option>
+													<option>country</option>
+													<option>India</option>
+													<option>Japan</option>
+												</select>
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label>Email Address*</label>
+												<input type="email" placeholder="Email Address">
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label>Phone no*</label>
+												<input type="text" placeholder="Phone number">
+											</div>
+											<div class="col-12 mb--20">
+												<label>Address*</label>
+												<input type="text" placeholder="Address line 1">
+												<input type="text" placeholder="Address line 2">
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label>Town/City*</label>
+												<input type="text" placeholder="Town/City">
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label>State*</label>
+												<input type="text" placeholder="State">
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label>Zip Code*</label>
+												<input type="text" placeholder="Zip Code">
+											</div>
+											<div class="col-12 mb--20 ">
+												<div class="block-border check-bx-wrapper">
+													<div class="check-box">
+														<input type="checkbox" id="create_account">
+														<label for="create_account">Create an Acount?</label>
+													</div>
+													<div class="check-box">
+														<input type="checkbox" id="shiping_address" data-shipping>
+														<label for="shiping_address">Ship to Different Address</label>
+													</div>
+												</div>
+											</div>
+										</div> -->
+									</div>
+									<!-- Shipping Address -->
+									<!-- <div id="shipping-form" class="mb--40">
+										<h4 class="checkout-title">Shipping Address</h4>
+										<div class="row">
+											<div class="col-md-6 col-12 mb--20">
+												<label>First Name*</label>
+												<input type="text" placeholder="First Name">
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label>Last Name*</label>
+												<input type="text" placeholder="Last Name">
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label>Email Address*</label>
+												<input type="email" placeholder="Email Address">
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label>Phone no*</label>
+												<input type="text" placeholder="Phone number">
+											</div>
+											<div class="col-12 mb--20">
+												<label>Company Name</label>
+												<input type="text" placeholder="Company Name">
+											</div>
+											<div class="col-12 mb--20">
+												<label>Address*</label>
+												<input type="text" placeholder="Address line 1">
+												<input type="text" placeholder="Address line 2">
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label>Country*</label>
+												<select class="nice-select">
+													<option>Bangladesh</option>
+													<option>China</option>
+													<option>country</option>
+													<option>India</option>
+													<option>Japan</option>
+												</select>
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label>Town/City*</label>
+												<input type="text" placeholder="Town/City">
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label>State*</label>
+												<input type="text" placeholder="State">
+											</div>
+											<div class="col-md-6 col-12 mb--20">
+												<label>Zip Code*</label>
+												<input type="text" placeholder="Zip Code">
+											</div>
+										</div>
+									</div> -->
+									<div class="order-note-block mt--30">
+										<button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn-address">+ Add new address</button>
+										<form action="/buynow/checkout" name="checkout" id="checkoutForm" method="POST">{% csrf_token %}
+										{% if address != 0 %}
+										<label for="order-note">Select Address</label>
+										{% for item in address %}
+										<div class="col-lg-8" style="border: 1px solid;">
+											<input type="radio" name="address" value="{{item.id}}" style="margin-left: -200px !important;" required checked> 
+											<textarea id="order-note" style="height: 8rem !important; overflow: hidden; resize: none; background: white;" readonly>{{item.name}}, 
+{{item.address}}, {{item.city}}, {{item.state}} {{item.zip}}.
+Mobile: {{item.mobile}}</textarea>
+										</div><br>
+										{% endfor %}
+										{% else %}
+										<p>You haven't added any address.</p>
+										{% endif %}
+										
+									</div>
+									<!-- <div class="order-note-block mt--30">
+										<label for="order-note">Order notes</label>
+										<textarea id="order-note" cols="30" rows="10" class="order-note"
+											placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+									</div> -->
+								</div>
+								<div class="col-lg-5">
+									<div class="row">
+										<!-- Cart Total -->
+										<div class="col-12">
+											<div class="checkout-cart-total">
+												<h2 class="checkout-title">YOUR ORDER</h2>
+												{% if item %}
+												<h4>Product <span>Total</span></h4>
+												<ul>
+													<li><span class="left">{{item.book.title}} X {{item.qty}}</span> <span
+															class="right">&#8377;{{item.price}}</span></li>
+														
+														<input type="hidden" name="cartid" value="{{item.id}}">
+														<input type="hidden" name="total" id="totamt" value="{{item.price}}">
+												</ul>
+												<p class="coupon-discount">Coupon discount <span>&#8377;{{discount}}</span></p>
+												<h4 class="grand-total">Grand Total <span>&#8377;{{item.price}}</span></h4>
+												<div class="method-notice mt--25">
+													
+														<h3 class="d-none sr-only">Payment method</h3>
+														<select class="nice-select" onchange="showPaypal()" id="payselect" name="mode" required>
+															<option value="0" selected>Choose payment mode</option>
+															<option value="1">Pay on Delivery</option>
+															<option value="2">Razorpay</option>
+															<option value="3">Paypal</option>	
+														</select>
+													
+												</div>
+												<!-- <div class="term-block">
+													<input type="checkbox" id="accept_terms2" required>
+													<label for="accept_terms2">I’ve read and accept the terms &
+														conditions</label>
+												</div> -->
+												{% endif %}
+											</form>
+											<button id="rzp-button1" data-product="{{item.id}}" data-action="/razorpay/buynow/create" class="btn btn-success w-100">Place Order</button><br><br>
+												<div id="paypal-button-container" style="display: none; margin-top: -20px;"></div>
+												<script src="https://www.paypal.com/sdk/js?client-id=AfNeLbpixAEUtM1AS1AFCEWDjsUrywJqoYP4aA1HxWHOAvlGiBobpbeoqQyaRQJ53hQVaVYWkrXS360h&currency=USD"></script>
+
+												<script>
+													function showPaypal(){
+														pay = document.getElementById("payselect").value;
+														if (pay == '3'){
+															document.getElementById('paypal-button-container').style.display='block';
+															document.getElementById('rzp-button1').style.display='none'
+														} else {
+															document.getElementById('paypal-button-container').style.display='none';
+															document.getElementById('rzp-button1').style.display='block'
+														}
+														
+													}
+													var paypalamount = '{{item.price}}';
+													// Render the PayPal button into #paypal-button-container
+													paypal.Buttons({
+
+														// Set up the transaction
+														createOrder: function(data, actions) {
+															return actions.order.create({
+																purchase_units: [{
+																	amount: {
+																		value: paypalamount
+																	}
+																}]
+															});
+														},
+
+														// Finalize the transaction
+														onApprove: function(data, actions) {
+															return actions.order.capture().then(function(orderData) {
+																// Successful capture! For demo purposes:
+																console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+																var transaction = orderData.purchase_units[0].payments.captures[0];
+																// alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+																$('form#checkoutForm').submit();
+																// Replace the above to show a success message within this page, e.g.
+																// const element = document.getElementById('paypal-button-container');
+																// element.innerHTML = '';
+																// element.innerHTML = '<h3>Thank you for your payment!</h3>';
+																// Or go to another URL:  actions.redirect('thank_you.html');
+															});
+														}
+
+
+													}).render('#paypal-button-container');
+												</script>
+												<!-- <button class="btn btn-primary w-100">Pay with Paypal</button><br><br>
+												<button id="rzp-button1" class="btn btn-warning w-100">Pay with RazorPay</button> -->
+												<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+												<script>
+												var options = {
+													"key": "rzp_test_8vKacdMfPIR03u", // Enter the Key ID generated from the Dashboard
+													"amount": '100', // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+													"currency": "INR",
+													"name": "READit",
+													"description": "Test Transaction",
+													"image": "https://i.ibb.co/2Fsc2kP/logo.png",
+													"order_id": "{{razorpayid}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+													"handler": function (response){
+														// alert(response.razorpay_payment_id);
+														// alert(response.razorpay_order_id);
+														// alert(response.razorpay_signature)
+
+														$('form#checkoutForm').submit();
+													},
+													"prefill": {
+														"name": "{{user.fullname}}",
+														"email": "{{user.email}}",
+														"contact": "{{user.phone}}"
+													},
+													"notes": {
+														"address": "Razorpay Corporate Office"
+													},
+													"theme": {
+														"color": "#3399cc"
+													}
+												};
+												var rzp1 = new Razorpay(options);
+												rzp1.on('payment.failed', function (response){
+														alert(response.error.code);
+														alert(response.error.description);
+														alert(response.error.source);
+														alert(response.error.step);
+														alert(response.error.reason);
+														alert(response.error.metadata.order_id);
+														alert(response.error.metadata.payment_id);
+												});
+												document.getElementById('rzp-button1').onclick = function(e){
+													mode = document.checkout.mode.value;
+													var product = $(this).data('product')
+													var path = $(this).data('action')
+													if (mode == 2){
+														$.ajax({
+															url : path,
+															type: 'GET',
+															dataType : 'json',
+															data: {
+																product: product,
+															},
+															success: function(response){
+																if (response.status == 'success'){
+																	// alertify.success(response.message)
+																	options["order_id"] = response.orderid;
+																	
+																	rzp1 = new Razorpay(options)
+																	paymentid = response.orderid
+																	rzp1.open();
+   																	e.preventDefault();
+																}
+																if (response.status == 'fail'){
+																	alertify.error(response.message)
+																}
+															}
+														})
+													} else {
+														if (mode == 1) {
+														$('form#checkoutForm').submit();
+														} else {
+															alertify.error('Choose a payment methode!')
+														}
+													}
+												}
+												</script>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel">Add an Address</h5>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form class="inline-form" method="POST" action="/account/address/add"> {% csrf_token %}
+					<div class="mb-3">
+						<input type="hidden" name="next" value="/cart/checkout">	
+					  <input name="fname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Full Name">
+					</div>
+					<div class="col-lg-12 col-12 mb--30">
+					  <input name="state" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter State/Province">
+					</div>
+					<div class="col-lg-12 col-12 mb--30">
+						<input name="city" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter City">
+					  </div>
+					  <div class="col-lg-12 col-12 mb--30">
+						<textarea name="address" class="form-control" id="" cols="30" rows="3" placeholder="Enter Address"></textarea>
+					  </div>
+					  <div class="col-lg-12 col-12 mb--30">
+						<input name="zip" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Zip code">
+					  </div>
+					  <div class="col-lg-12 col-12 mb--30">
+						<input name="phone" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Phone number">
+					  </div>
+					
+				  
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			  <button type="submit" class="btn btn-primary">Save Address</button>
+			</form>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	<!--=================================
+  Brands Slider
+===================================== -->
+	<section class="section-margin">
+		<h2 class="sr-only">Brand Slider</h2>
+		<div class="container">
+			<div class="brand-slider sb-slick-slider border-top border-bottom" data-slick-setting='{
+                                            "autoplay": true,
+                                            "autoplaySpeed": 8000,
+                                            "slidesToShow": 6
+                                            }' data-slick-responsive='[
+                {"breakpoint":992, "settings": {"slidesToShow": 4} },
+                {"breakpoint":768, "settings": {"slidesToShow": 3} },
+                {"breakpoint":575, "settings": {"slidesToShow": 3} },
+                {"breakpoint":480, "settings": {"slidesToShow": 2} },
+                {"breakpoint":320, "settings": {"slidesToShow": 1} }
+            ]'>
+				<div class="single-slide">
+					<img src="image/others/brand-1.jpg" alt="">
+				</div>
+				<div class="single-slide">
+					<img src="image/others/brand-2.jpg" alt="">
+				</div>
+				<div class="single-slide">
+					<img src="image/others/brand-3.jpg" alt="">
+				</div>
+				<div class="single-slide">
+					<img src="image/others/brand-4.jpg" alt="">
+				</div>
+				<div class="single-slide">
+					<img src="image/others/brand-5.jpg" alt="">
+				</div>
+				<div class="single-slide">
+					<img src="image/others/brand-6.jpg" alt="">
+				</div>
+				<div class="single-slide">
+					<img src="image/others/brand-1.jpg" alt="">
+				</div>
+				<div class="single-slide">
+					<img src="image/others/brand-2.jpg" alt="">
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--=================================
+    Footer Area
+===================================== -->
+	<footer class="site-footer">
+		<div class="container">
+			<div class="row justify-content-between  section-padding">
+				<div class=" col-xl-3 col-lg-4 col-sm-6">
+					<div class="single-footer pb--40">
+						<div class="brand-footer footer-title">
+							<img src="image/logo--footer.png" alt="">
+						</div>
+						<div class="footer-contact">
+							<p><span class="label">Address:</span><span class="text">Example Street 98, HH2 BacHa, New
+									York, USA</span></p>
+							<p><span class="label">Phone:</span><span class="text">+18088 234 5678</span></p>
+							<p><span class="label">Email:</span><span class="text">suport@hastech.com</span></p>
+						</div>
+					</div>
+				</div>
+				<div class=" col-xl-3 col-lg-2 col-sm-6">
+					<div class="single-footer pb--40">
+						<div class="footer-title">
+							<h3>Information</h3>
+						</div>
+						<ul class="footer-list normal-list">
+							<li><a href="#">Prices drop</a></li>
+							<li><a href="#">New products</a></li>
+							<li><a href="#">Best sales</a></li>
+							<li><a href="#">Contact us</a></li>
+							<li><a href="#">Sitemap</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class=" col-xl-3 col-lg-2 col-sm-6">
+					<div class="single-footer pb--40">
+						<div class="footer-title">
+							<h3>Extras</h3>
+						</div>
+						<ul class="footer-list normal-list">
+							<li><a href="#">Delivery</a></li>
+							<li><a href="#">About Us</a></li>
+							<li><a href="#">Stores</a></li>
+							<li><a href="#">Contact us</a></li>
+							<li><a href="#">Sitemap</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class=" col-xl-3 col-lg-4 col-sm-6">
+					<div class="footer-title">
+						<h3>Newsletter Subscribe</h3>
+					</div>
+					<div class="newsletter-form mb--30">
+						<form action="https://template.hasthemes.com/pustok/pustok/php/mail.php">
+							<input type="email" class="form-control" placeholder="Enter Your Email Address Here...">
+							<button class="btn btn--primary w-100">Subscribe</button>
+						</form>
+					</div>
+					<div class="social-block">
+						<h3 class="title">STAY CONNECTED</h3>
+						<ul class="social-list list-inline">
+							<li class="single-social facebook"><a href="#"><i class="ion ion-social-facebook"></i></a>
+							</li>
+							<li class="single-social twitter"><a href="#"><i class="ion ion-social-twitter"></i></a></li>
+							<li class="single-social google"><a href="#"><i
+										class="ion ion-social-googleplus-outline"></i></a></li>
+							<li class="single-social youtube"><a href="#"><i class="ion ion-social-youtube"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="container">
+				<p class="copyright-heading">Suspendisse in auctor augue. Cras fermentum est ac fermentum tempor. Etiam
+					vel magna volutpat, posuere eros</p>
+				<a href="#" class="payment-block">
+					<img src="image/icon/payment.png" alt="">
+				</a>
+				<p class="copyright-text">Copyright © 2021 <a href="#" class="author">Pustok</a>. All Right Reserved.
+					<br>
+					Design By Pustok</p>
+			</div>
+		</div>
+	</footer>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+        $('.apply-coupon').click(function(e){
+    e.preventDefault();
+    var path = $(this).data('action');
+	var code = $('#coupon-code').val()
+	var product = $(this).data('product')
+    $.ajax({
+        url : path,
+        type: 'GET',
+        dataType : 'json',
+		data: {
+			code: code,
+			product: product,
+		},
+        success: function(response){
+            if (response.status == 'success'){
+                // alertify.success(response.message)
+				Msg.success(response.message, 3500);
+
+                $('.sub-total').html('Sub Total <span>&#8377;'+response.oldtotal+'</span>')
+                $('.coupon-discount').html('Coupon discount <span>&#8377;'+response.discount+'</span>')
+				$('.grand-total').html('Grand Total <span>&#8377;'+response.newtotal+'</span>')
+				$("#coupon-code").attr('disabled','disabled');
+				$('.remove-coupon').removeClass('disable')
+				$('#totamt').val(response.newtotal)
+				
+				options["order_id"] = response.orderid;
+
+				paypalamount = response.newtotal
+				
+				rzp1 = new Razorpay(options)
+				
+            }
+            if (response.status == 'fail'){
+                alertify.error(response.message)
+            }
+        }
+    })
+})
+    </script>
+
+<script>
+	$('.remove-coupon').click(function(e){
+e.preventDefault();
+var path = $(this).data('action');
+var product = $(this).data('product')
+$.ajax({
+	url : path,
+	type: 'GET',
+	dataType : 'json',
+	data: {
+			product: product,
+		},
+	success: function(response){
+		if (response.status == 'success'){
+			alertify.warning(response.message)
+			$('.coupon-discount').html('Coupon discount <span>&#8377;00.00</span>')
+			$('.grand-total').html('Grand Total <span>&#8377;'+response.subtotal+'</span>')
+			$("#coupon-code").removeAttr('disabled');
+			$('.remove-coupon').addClass('disable')
+			$('#coupon-code').val('')
+			paypalamount = response.subtotal
+		}
+		if (response.status == 'fail'){
+			alertify.error(response.message)
+		}
+	}
+})
+})
+</script>
+     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+   
+	<!-- Use Minified Plugins Version For Fast Page Load -->
+	<script src="{% static 'js/plugins.js' %}"></script>
+	<script src="{% static 'js/ajax-mail.js' %}"></script>
+	<script src="{% static 'js/custom.js' %}"></script>
+	<script src="{% static 'js/bootstrap-msg.js' %}"></script>
+</body>
+
+
+<!-- Mirrored from template.hasthemes.com/pustok/pustok/checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Dec 2021 14:10:34 GMT -->
+</html>

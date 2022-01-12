@@ -1,0 +1,50 @@
+{% extends 'footer.html' %}
+{% block content %}
+<section class="breadcrumb-section">
+    <h2 class="sr-only">Site Breadcrumb</h2>
+    <div class="container">
+        <div class="breadcrumb-contents">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="../">Home</a></li>
+                    <li class="breadcrumb-item active">Account</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+<!--=============================================
+=            Login Register page content         =
+=============================================-->
+<main class="page-section inner-page-sec-padding-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
+                <form action="" method="POST" autocomplete="off"> {% csrf_token %}
+                    <div class="login-form">
+                        <h4 class="login-title">Enter your OTP</h4>
+                        <p><span class="font-weight-bold">A six-digit OTP has been sent to {{request.session.phone_number}}</span></p>
+                        
+                            <div style="margin-top: 10px;">
+                                <form class="form-inline">
+                                    <div class="form-group mb-2">
+                                      <label for="inputPassword2" class="sr-only">Enter 6 digit OTP</label>
+                                      <input type="number" name="code" class="form-control" id="inputPassword2" placeholder="OTP" required>
+                                    </div>
+                                    {% if messages %}
+                                    <div class="form-group mb-2">
+                                        <p>{% for msg in messages %} <p style="color: red;">{{msg}}</p> {% endfor %}</p>
+                                    </div>
+                                    {% endif %}
+                                    <button type="submit" class="btn btn-outlined mb-2">VERIFY</button>
+                                  </form>
+                            </div>
+                    </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</main>
+</div>
+{% endblock content %}
