@@ -135,17 +135,17 @@ def store(request):
     recent = Books.objects.order_by('?').first()
     categories = Category.objects.order_by('?')
     offers = Offer.objects.last()
-    if request.session.has_key('user'):
-        context = {
-            'books': books, 
-            'genres': categories, 
-            'auth': GetElements.authors(),
-            'user': GetElements.Getuser(request),
-            'numitem': GetElements.GetNumItem(request),
-            'totamt': GetElements.GetAmt(request),
-            'recent': recent,
-            'offer': offers,
-        }
+    
+    context = {
+        'books': books, 
+        'genres': categories, 
+        'auth': GetElements.authors(),
+        'user': GetElements.Getuser(request),
+        'numitem': GetElements.GetNumItem(request),
+        'totamt': GetElements.GetAmt(request),
+        'recent': recent,
+        'offer': offers,
+    }
     # else:
     #     if not request.COOKIES['device']:
     #         context = {
