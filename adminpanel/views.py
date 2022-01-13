@@ -24,9 +24,13 @@ def panel(request):
         
         status = statusReport()    
         month_order = monthReport(request)
-        month_order = round(month_order.get('total__sum'), 2)
-        year_order = yearReport(request)
-        year_order = round(year_order.get('total__sum'), 2)
+        if month_order.get('total__sum') >= 0:
+            month_order = round(month_order.get('total__sum'), 2)
+            year_order = yearReport(request)
+            year_order = round(year_order.get('total__sum'), 2)
+        else:    
+            month_order = 0
+            year_order = 0
         result = categoryEarnings(request)
         paycount = paymentCount(request)
         # for res in result:
@@ -268,9 +272,6 @@ def books_add(request):
             prodDiscount = request.POST.get('discount')
             prodDiscount = float(prodDiscount)
             cat_offer = Offer.objects.filter(category_id=category)
-            file1 = request.POST.get('cropped_image1')
-            file2 = request.POST.get('cropped_image2')
-            print(request.POST.get('cropped_image3'))
             if cat_offer:
                 offer = Offer.objects.get(category_id=category)
                 if offer.discount > prodDiscount:

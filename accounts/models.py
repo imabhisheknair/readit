@@ -21,14 +21,15 @@ class AccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password=None):
-        if not email:
-            raise ValueError('You must have an email')
+    def create_superuser(self, phone, password=None):
+        # if not email:
+        #     raise ValueError('You must have an email')
 
         user = self.model(
-            email = self.normalize_email(email),
-            # fullname = fullname,
-            phone = '+91'+str(random.randint(6300000000,9999999999)),
+            # email = self.normalize_email(email),
+            # # fullname = fullname,
+            # phone = '+91'+str(random.randint(6300000000,9999999999)),
+            phone = phone,
             is_active = 1,
             is_superuser = 1,
             is_admin = 1,

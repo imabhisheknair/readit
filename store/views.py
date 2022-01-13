@@ -10,53 +10,53 @@ from django.template import Library
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 
-register = Library()
-logger = logging.getLogger(__name__)
+# register = Library()
+# logger = logging.getLogger(__name__)
 
 
-@register.filter
-def sub(value, arg):
-    """Subtract the arg from the value."""
-    try:
-        nvalue, narg = handle_float_decimal_combinations(
-            valid_numeric(value), valid_numeric(arg), '-'
-        )
-        return nvalue - narg
-    except (ValueError, TypeError):
-        try:
-            return value - arg
-        except Exception:
-            return ''
+# @register.filter
+# def sub(value, arg):
+#     """Subtract the arg from the value."""
+#     try:
+#         nvalue, narg = handle_float_decimal_combinations(
+#             valid_numeric(value), valid_numeric(arg), '-'
+#         )
+#         return nvalue - narg
+#     except (ValueError, TypeError):
+#         try:
+#             return value - arg
+#         except Exception:
+#             return ''
 
 
-@register.filter
-def mul(value, arg):
-    """Multiply the arg with the value."""
-    try:
-        nvalue, narg = handle_float_decimal_combinations(
-            valid_numeric(value), valid_numeric(arg), '*'
-        )
-        return nvalue * narg
-    except (ValueError, TypeError):
-        try:
-            return value * arg
-        except Exception:
-            return ''
+# @register.filter
+# def mul(value, arg):
+#     """Multiply the arg with the value."""
+#     try:
+#         nvalue, narg = handle_float_decimal_combinations(
+#             valid_numeric(value), valid_numeric(arg), '*'
+#         )
+#         return nvalue * narg
+#     except (ValueError, TypeError):
+#         try:
+#             return value * arg
+#         except Exception:
+#             return ''
 
 
-@register.filter
-def div(value, arg):
-    """Divide the arg by the value."""
-    try:
-        nvalue, narg = handle_float_decimal_combinations(
-            valid_numeric(value), valid_numeric(arg), '/'
-        )
-        return nvalue / narg
-    except (ValueError, TypeError):
-        try:
-            return value / arg
-        except Exception:
-            return ''
+# @register.filter
+# def div(value, arg):
+#     """Divide the arg by the value."""
+#     try:
+#         nvalue, narg = handle_float_decimal_combinations(
+#             valid_numeric(value), valid_numeric(arg), '/'
+#         )
+#         return nvalue / narg
+#     except (ValueError, TypeError):
+#         try:
+#             return value / arg
+#         except Exception:
+#             return ''
 
 class GetElements:
     def Getuser(request):
@@ -146,28 +146,40 @@ def store(request):
             'recent': recent,
             'offer': offers,
         }
-    else:
-        device = request.COOKIES['device']
-        cart = Cart.objects.filter(guest_user=device)
-        if cart:  
-            cartitems = Cart.objects.filter(guest_user=device).all()
-            numitems = cartitems.count()
-            totamt = cartitems.aggregate(Sum('price'))
-            totamt = totamt.get('price__sum')
-        else:
-            cartitems = 0
-            numitems = 0
-            totamt = 0    
-        context = {
-            'books': books, 
-            'genres': categories, 
-            'auth': GetElements.authors(),
-            'user': GetElements.Getuser(request),
-            'numitem': numitems,
-            'totamt': totamt,
-            'recent': recent,
-            'offer': offers,
-        }  
+    # else:
+    #     if not request.COOKIES['device']:
+    #         context = {
+    #         'books': books, 
+    #         'genres': categories, 
+    #         'auth': GetElements.authors(),
+    #         'user': GetElements.Getuser(request),
+    #         'numitem': GetElements.GetNumItem(request),
+    #         'totamt': GetElements.GetAmt(request),
+    #         'recent': recent,
+    #         'offer': offers,
+    #         }
+    #     else: 
+    #         device = request.COOKIES['device']
+    #         cart = Cart.objects.filter(guest_user=device)
+    #         if cart:  
+    #             cartitems = Cart.objects.filter(guest_user=device).all()
+    #             numitems = cartitems.count()
+    #             totamt = cartitems.aggregate(Sum('price'))
+    #             totamt = totamt.get('price__sum')
+    #         else:
+    #             cartitems = 0
+    #             numitems = 0
+    #             totamt = 0    
+    #         context = {
+    #             'books': books, 
+    #             'genres': categories, 
+    #             'auth': GetElements.authors(),
+    #             'user': GetElements.Getuser(request),
+    #             'numitem': numitems,
+    #             'totamt': totamt,
+    #             'recent': recent,
+    #             'offer': offers,
+    #         }  
     return render(request, 'store/index.html', context)
 
 
