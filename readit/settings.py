@@ -25,7 +25,7 @@ SECRET_KEY = '=0-*8r-uej9f*qghm&5cqd)df=i=+)w#_)g#0$a0cwsd=#b6s#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://ec2-3-95-193-49.compute-1.amazonaws.com/']
 
 
 # Application definition
@@ -85,9 +85,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'readit',
-        'USER': 'abhi',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
+        'USER': 'admin',
+        'PASSWORD': '12345678',
+        'HOST': 'readit.chxuygtoaayp.us-east-1.rds.amazonaws.com',
         'PORT': '3306'
     }
 }
