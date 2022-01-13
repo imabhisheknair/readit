@@ -314,5 +314,5 @@ def author_books(request, name):
             return render(request, 'store/author.html', context)
 
     else:
-        messages.error(request, 'Sorry ;( books by '+name+'currently unavailable!')
+        messages.error(request, 'Sorry ;( books by '+name+' currently unavailable!')
         return redirect('/store/search') 
