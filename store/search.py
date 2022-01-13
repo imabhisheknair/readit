@@ -245,7 +245,7 @@ def categoery_books(request, title):
 def author_books(request, name):
     name = name.replace('_', ' ')
     books = Books.objects.filter(author_id__name=name)
-    if books:
+    if books.count() >= 1:
         books = Books.objects.filter(author_id__name=name).all()
         if request.GET.get('sort'):
             sort = request.GET.get('sort')
