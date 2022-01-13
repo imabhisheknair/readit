@@ -5,7 +5,7 @@ from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 
 from accounts.models import Account, Address
-from adminpanel.models import Books
+from adminpanel.models import Books, Category
 from store.models import Cart, Coupon, Coupon_entry, CouponOrders, Order, OrderItems
 import razorpay
 from django.conf import settings
@@ -65,7 +65,8 @@ class GetElements:
                 return address
             else:
                 return 0  
-
+    def GetCats():
+        return Category.objects.all()
 
 @login_required(login_url='/account/register')
 def checkoutpage(request):
@@ -129,6 +130,7 @@ def checkoutpage(request):
             'cart': GetElements.GetCart(request),
             'numitem': GetElements.GetNumItem(request),
             'totamt': total,
+            'categories': GetElements.GetCats(),
             'address': GetElements.Getaddr(request),
             'coupon':coupon,
             'coupon_code': coupon_code,

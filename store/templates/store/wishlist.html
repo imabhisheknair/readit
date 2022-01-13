@@ -44,7 +44,7 @@
 				<div class="container">
 					<div class="row align-items-center">
 						<div class="col-lg-3 ">
-							<a href="http://127.0.0.1:8000/" class="site-brand">
+							<a href="/" class="site-brand">
 								<img src="{% static 'image/logo.png' %}" alt="">
 							</a>
 						</div>
@@ -179,26 +179,24 @@
 									<a href="javascript:void(0)" class="category-trigger"><i
 											class="fa fa-bars"></i>Browse
 										categories</a>
-									<ul class="category-menu">
-										<li class="cat-item has-children">
-											<a href="#">Authors</a>
-											<ul class="sub-menu">
-                                                {% for author in auth %}
-												<li><a href="#">{{author.name}}</a></li>
-                                                {% endfor %}
-											</ul>
-										</li>
-                                        <li class="cat-item has-children">
-											<a href="#">Genres</a>
-											<ul class="sub-menu">
-                                                {% for gen in genres %}
-												<li><a href="#">{{gen.title}}</a></li>
-                                                {% endfor %}
-											</ul>
-										</li>
-										
-										
-									</ul>
+										<ul class="category-menu">
+											<li class="cat-item has-children">
+												<a href="#">Authors</a>
+												<ul class="sub-menu">
+													{% for author in auth %}
+													<li><a href="/author/{{author.name.split|join:'_'}}">{{author.name}}</a></li>
+													{% endfor %}
+												</ul>
+											</li>
+											<li class="cat-item has-children">
+												<a href="#">Genres</a>
+												<ul class="sub-menu">
+													{% for gen in categories %}
+													<li><a href="/category/{{gen.title.split|join:'_'}}">{{gen.title}}</a></li>
+													{% endfor %}
+												</ul>
+											</li>
+										</ul>
 								</div>
 							</nav>
 						</div>
@@ -238,48 +236,36 @@
 						<nav class="off-canvas-nav">
 							<ul class="mobile-menu main-mobile-menu">
 								<li class="menu-item">
-									<a href="#">Home</a>
-					
+									<a href="/">Home</a>
+								</li>
+                                <li class="menu-item">
+									<a href="/store/search">Shop</a>
 								</li>
 								{% if user != 0 %}
-								<li><a href="/account/logout">logout</a></li>
+								<li class="menu-item">
+                                    <a href="/account/me">My Account</a>
+                                </li>
+								<li class="menu-item">
+                                    <a href="/account/logout">logout</a>
+                                </li>
+                                {% else %}
+                                <li class="menu-item">
+                                    <a href="/account/login">Login</a>
+                                </li>
+                                <li class="menu-item"> 
+                                    <a href="/account/register">Register</a>
+                                </li>
 								{% endif %}
 							</ul>
 						</nav>
 						<!-- mobile menu navigation end -->
 					</div>
 					<!-- mobile menu end -->
-					<nav class="off-canvas-nav">
-						<ul class="mobile-menu menu-block-2">
-							<li class="menu-item-has-children">
-								<a href="#">Currency - USD $ <i class="fas fa-angle-down"></i></a>
-								<ul class="sub-menu">
-									<li> <a href="cart.html">USD $</a></li>
-									<li> <a href="checkout.html">EUR €</a></li>
-								</ul>
-							</li>
-							<li class="menu-item-has-children">
-								<a href="#">Lang - Eng<i class="fas fa-angle-down"></i></a>
-								<ul class="sub-menu">
-									<li>Eng</li>
-									<li>Ban</li>
-								</ul>
-							</li>
-							<li class="menu-item-has-children">
-								<a href="#">My Account <i class="fas fa-angle-down"></i></a>
-								<ul class="sub-menu">
-									<li><a href="#">My Account</a></li>
-									<li><a href="#">Order History</a></li>
-									<li><a href="#">Transactions</a></li>
-									<li><a href="#">Downloads</a></li>
-								</ul>
-							</li>
-						</ul>
-					</nav>
+					
 					<div class="off-canvas-bottom">
 						<div class="contact-list mb--10">
-							<a href="#" class="sin-contact"><i class="fas fa-mobile-alt"></i>(12345) 78790220</a>
-							<a href="#" class="sin-contact"><i class="fas fa-envelope"></i>examle@handart.com</a>
+							<a href="#" class="sin-contact"><i class="fas fa-mobile-alt"></i>+91-911-387-7137</a>
+							<a href="#" class="sin-contact"><i class="fas fa-envelope"></i>contact@readit.com</a>
 						</div>
 					</div>
 				</div>

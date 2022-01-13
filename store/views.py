@@ -10,6 +10,8 @@ from django.template import Library
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 
+
+
 # register = Library()
 # logger = logging.getLogger(__name__)
 
@@ -305,12 +307,14 @@ def wishlist(request):
     if request.session.has_key('user'):
         user = Account.objects.get(email= request.session['user'])
         wlist = Wishlist.objects.filter(user_id=user.id)
+        categories = Category.objects.all()
         if wlist:
             context = {
             'user': GetElements.Getuser(request),
             'cart': GetElements.GetCart(request),
             'numitem': GetElements.GetNumItem(request),
             'totamt': GetElements.GetAmt(request),
+            'categories': categories,
             'wlist': wlist,
             } 
             wlist = Wishlist.objects.filter(user_id=user.id).all()
@@ -321,10 +325,12 @@ def wishlist(request):
             'cart': GetElements.GetCart(request),
             'numitem': GetElements.GetNumItem(request),
             'totamt': GetElements.GetAmt(request),
+            'categories': categories,
             } 
             return render(request, 'store/wishlist.html', context)
     else:
         device = request.COOKIES['device']
+        categories = Category.objects.all()
         cart = Cart.objects.filter(guest_user=device)
         if cart:  
             cartitems = Cart.objects.filter(guest_user=device).all()
@@ -342,6 +348,7 @@ def wishlist(request):
             'numitem': numitems,
             'totamt': totamt,
             'wlist': wlist,
+            'categories': categories,
             } 
             return render(request, 'store/wishlist.html', context)
         else:

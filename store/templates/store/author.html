@@ -210,54 +210,35 @@
 							<ul class="mobile-menu main-mobile-menu">
 								<li class="menu-item">
 									<a href="/">Home</a>
-									
 								</li>
-								
-								<li><a href="contact.html">Contact</a></li>
+                                <li class="menu-item">
+									<a href="/store/search">Shop</a>
+								</li>
+								{% if user != 0 %}
+								<li class="menu-item">
+                                    <a href="/account/me">My Account</a>
+                                </li>
+								<li class="menu-item">
+                                    <a href="/account/logout">logout</a>
+                                </li>
+                                {% else %}
+                                <li class="menu-item">
+                                    <a href="/account/login">Login</a>
+                                </li>
+                                <li class="menu-item"> 
+                                    <a href="/account/register">Register</a>
+                                </li>
+								{% endif %}
 							</ul>
 						</nav>
 						<!-- mobile menu navigation end -->
 					</div>
 					<!-- mobile menu end -->
-					<nav class="off-canvas-nav">
-						<ul class="mobile-menu menu-block-2">
-							<li class="menu-item-has-children">
-								<a href="#">Currency - USD $ <i class="fas fa-angle-down"></i></a>
-								<ul class="sub-menu">
-									<li> <a href="/cart">USD $</a></li>
-									<li> <a href="/checkout">EUR €</a></li>
-								</ul>
-							</li>
-							<li class="menu-item-has-children">
-								<a href="#">Lang - Eng<i class="fas fa-angle-down"></i></a>
-								<ul class="sub-menu">
-									<li>Eng</li>
-									<li>Ban</li>
-								</ul>
-							</li>
-							<li class="menu-item-has-children">
-								<a href="#">My Account <i class="fas fa-angle-down"></i></a>
-								<ul class="sub-menu">
-									<li><a href="#">My Account</a></li>
-									<li><a href="#">Order History</a></li>
-									<li><a href="#">Transactions</a></li>
-									<li><a href="#">Downloads</a></li>
-								</ul>
-							</li>
-						</ul>
-					</nav>
+					
 					<div class="off-canvas-bottom">
 						<div class="contact-list mb--10">
-							<a href="#" class="sin-contact"><i class="fas fa-mobile-alt"></i>(12345) 78790220</a>
-							<a href="#" class="sin-contact"><i class="fas fa-envelope"></i>examle@handart.com</a>
-						</div>
-						<div class="off-canvas-social">
-							<a href="#" class="single-icon"><i class="fab fa-facebook-f"></i></a>
-							<a href="#" class="single-icon"><i class="fab fa-twitter"></i></a>
-							<a href="#" class="single-icon"><i class="fas fa-rss"></i></a>
-							<a href="#" class="single-icon"><i class="fab fa-youtube"></i></a>
-							<a href="#" class="single-icon"><i class="fab fa-google-plus-g"></i></a>
-							<a href="#" class="single-icon"><i class="fab fa-instagram"></i></a>
+							<a href="#" class="sin-contact"><i class="fas fa-mobile-alt"></i>+91-911-387-7137</a>
+							<a href="#" class="sin-contact"><i class="fas fa-envelope"></i>contact@readit.com</a>
 						</div>
 					</div>
 				</div>

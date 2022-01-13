@@ -121,8 +121,24 @@
 									<a href="javascript:void(0)" class="category-trigger"><i
 											class="fa fa-bars"></i>Browse
 										categories</a>
-									
-									</ul>
+										<ul class="category-menu">
+											<li class="cat-item has-children">
+												<a href="#">Authors</a>
+												<ul class="sub-menu">
+													{% for author in auth %}
+													<li><a href="/author/{{author.name.split|join:'_'}}">{{author.name}}</a></li>
+													{% endfor %}
+												</ul>
+											</li>
+											<li class="cat-item has-children">
+												<a href="#">Genres</a>
+												<ul class="sub-menu">
+													{% for gen in genres %}
+													<li><a href="/category/{{gen.title.split|join:'_'}}">{{gen.title}}</a></li>
+													{% endfor %}
+												</ul>
+											</li>
+										</ul>
 								</div>
 							</nav>
 						</div>
@@ -130,7 +146,7 @@
 							<div class="mobile-header-btns header-top-widget">
 								<ul class="header-links">
 									<li class="sin-link">
-										<a href="cart.html" class="cart-link link-icon"><i class="ion-bag"></i></a>
+										<a href="/cart" class="cart-link link-icon"><i class="ion-bag"></i></a>
 									</li>
 									<li class="sin-link">
 										<a href="javascript:" class="link-icon hamburgur-icon off-canvas-btn"><i
@@ -161,22 +177,38 @@
 						<!-- mobile menu navigation start -->
 						<nav class="off-canvas-nav">
 							<ul class="mobile-menu main-mobile-menu">
-								<li class="menu-item-has-children">
+								<li class="menu-item">
 									<a href="/">Home</a>
-									</li>
-								
-								
+								</li>
+                                <li class="menu-item">
+									<a href="/store/search">Shop</a>
+								</li>
+								{% if user != 0 %}
+								<li class="menu-item">
+                                    <a href="/account/me">My Account</a>
+                                </li>
+								<li class="menu-item">
+                                    <a href="/account/logout">logout</a>
+                                </li>
+                                {% else %}
+                                <li class="menu-item">
+                                    <a href="/account/login">Login</a>
+                                </li>
+                                <li class="menu-item"> 
+                                    <a href="/account/register">Register</a>
+                                </li>
+								{% endif %}
 							</ul>
 						</nav>
 						<!-- mobile menu navigation end -->
 					</div>
+					<!-- mobile menu end -->
 					
 					<div class="off-canvas-bottom">
 						<div class="contact-list mb--10">
-							<a href="#" class="sin-contact"><i class="fas fa-mobile-alt"></i>(12345) 78790220</a>
-							<a href="#" class="sin-contact"><i class="fas fa-envelope"></i>examle@handart.com</a>
+							<a href="#" class="sin-contact"><i class="fas fa-mobile-alt"></i>+91-911-387-7137</a>
+							<a href="#" class="sin-contact"><i class="fas fa-envelope"></i>contact@readit.com</a>
 						</div>
-						
 					</div>
 				</div>
 			</aside>
