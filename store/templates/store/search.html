@@ -15,7 +15,8 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/plugins.css' %}" />
 	<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/main.css' %}" />
 	<link rel="shortcut icon" type="image/x-icon" href="{% static 'image/favicon.ico' %}">
-	
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
 
 	<style>
@@ -45,7 +46,7 @@
     {% for message in messages %}
         <script>
             
-            alertify.error('{{message}}');
+            swal("Not Found!", "{{message}}");
             
         </script>
         {% endfor %}
