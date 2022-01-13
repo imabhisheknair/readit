@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Sum
 from django.db.models.query_utils import Q
 from django.http.response import HttpResponse, JsonResponse
+from adminpanel.models import Authors, Category
 from store.models import Cart, Order, OrderItems, Wishlist
 from .forms import CreateUserForm
 from django.shortcuts import render
@@ -163,7 +164,8 @@ def myaccount(request):
             count = 1
         else:
             count = 0
-
+        genres = Category.objects.all()
+        authors = Authors.objects.all()
         context = {
             'user': user,
             'address': Getaddr(),
@@ -174,7 +176,8 @@ def myaccount(request):
             'orders': GetOrders(request),
             'items': orderItems(request),
             'count': count,
-
+            'genres': genres,
+            'auth': authors,
 
         }
         return render(request, 'my-account.html', context)    
