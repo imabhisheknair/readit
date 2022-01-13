@@ -371,7 +371,9 @@ def cart_add(request, id):
             if cart:
                 cartitem = Cart.objects.get(user_id=user, book_id=id)
                 if request.GET.get('qty'):
-                    qty = cartitem.qty + int(request.GET.get('qty'))
+                    postqty = request.GET.get('qty')
+                    if book.stock - int(postqty) >= 1:
+                        qty = cartitem.qty + int(request.GET.get('qty'))
                 else:
                     qty = cartitem.qty + 1 
                 cartitem.qty = qty
