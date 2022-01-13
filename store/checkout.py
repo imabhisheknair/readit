@@ -9,8 +9,8 @@ from adminpanel.models import Books, Category
 from store.models import Cart, Coupon, Coupon_entry, CouponOrders, Order, OrderItems
 import razorpay
 from django.conf import settings
-from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponseBadRequest, request
+from django.views.decorators.cache import never_cache
+
 
 # authorize razorpay client with API Keys.
 # razorpay_client = razorpay.Client(
@@ -69,6 +69,7 @@ class GetElements:
         return Category.objects.all()
 
 @login_required(login_url='/account/register')
+@never_cache
 def checkoutpage(request):
     if request.POST:
         address = request.POST.get('address')
@@ -112,6 +113,8 @@ def checkoutpage(request):
 
     else:    
         user = request.session['userid']
+        if GetElements.GetCart(request) == 1:
+            return redirect('/cart')
         coupon = Cart.objects.filter(user_id=user, is_coupon=1)
         if coupon:
             code = Coupon_entry.objects.filter(user_id=user).last()
@@ -297,6 +300,7 @@ def buynowCouponRemove(request):
 
 
 @login_required(login_url='/account/login')
+@never_cache
 def buynowCheckout(request):
     id = request.POST.get('cartid')
     address = request.POST.get('address')
