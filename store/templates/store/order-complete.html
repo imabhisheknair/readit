@@ -13,10 +13,10 @@
 	<!-- Use Minified Plugins Version For Fast Page Load -->
 	<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/plugins.css' %}" />
 	<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/main.css' %}" />
-	
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
-<body>
+<body onload="successMsg()">
 	<div class="site-wrapper" id="top">
 		<div class="site-header header-2 mb--20 d-none d-lg-block">
 			<div class="header-middle pt--10 pb--10">
@@ -291,6 +291,9 @@
 			html2pdf()
 				.from(element)
 				.save()
+		}
+		function successMsg(){
+			swal("Order Placed!", "Thank you for shopping with us!", "success");
 		}
 	</script>
 	<!-- Use Minified Plugins Version For Fast Page Load -->
