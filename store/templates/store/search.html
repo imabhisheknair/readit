@@ -41,6 +41,15 @@
 </head>
 
 <body>
+	{% if messages %}
+    {% for message in messages %}
+        <script>
+            
+            alertify.error('{{message}}');
+            
+        </script>
+        {% endfor %}
+    {% endif %}
 	<div class="site-wrapper" id="top">
 		<div class="site-header d-none d-lg-block">
 			<div class="header-middle pt--10 pb--10">

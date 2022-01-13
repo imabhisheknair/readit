@@ -168,69 +168,74 @@ def categoery_books(request, title):
     title = title.replace('_', ' ')
     category = Category.objects.filter(title__icontains=title)
     if category:
-        books = Books.objects.filter(genre_id__title__icontains=title).all()
-        if request.GET.get('sort'):
-            sort = request.GET.get('sort')
-            if sort == '1':
-                books = books.order_by('sprice')
-            elif sort == '2':
-                books = books.order_by('-sprice')   
-            elif sort == '3':
-                books = books.order_by('title')   
-        else:
-            sort = 0
-
-        page = request.GET.get('page', 1)
-
-        paginator = Paginator(books, 6)
-        try:
-            books = paginator.page(page)
-        except PageNotAnInteger:
-            books = paginator.page(1)
-        except EmptyPage:
-            books = paginator.page(paginator.num_pages) 
-
-        langs = Books.objects.order_by().values('language').distinct()
-        count = Books.objects.filter(genre_id__title__icontains=title).count()
-        if request.session.has_key('user'):
-            context = {
-                'books': books,
-                'category': title,
-                'count': count,
-                'user': GetElements.Getuser(request),
-                'categories': GetElements.categories(),
-                'auth': GetElements.authors(),
-                'numitem': GetElements.GetNumItem(request),
-                'cartsum': GetElements.GetAmt(request),
-                'totamt': GetElements.GetAmt(request),
-                'sort': sort,
-                'lang': langs,
-            }
-        else:
-            device = request.COOKIES['device']
-            cart = Cart.objects.filter(guest_user=device)
-            if cart:  
-                cartitems = Cart.objects.filter(guest_user=device).all()
-                numitems = cartitems.count()
-                totamt = cartitems.aggregate(Sum('price'))
-                totamt = totamt.get('price__sum')
+        books = Books.objects.filter(genre_id__title__icontains=title)
+        if books:
+            books = Books.objects.filter(genre_id__title__icontains=title).all()
+            if request.GET.get('sort'):
+                sort = request.GET.get('sort')
+                if sort == '1':
+                    books = books.order_by('sprice')
+                elif sort == '2':
+                    books = books.order_by('-sprice')   
+                elif sort == '3':
+                    books = books.order_by('title')   
             else:
-                cartitems = 0
-                numitems = 0
-                totamt = 0 
-            context = {
-                'books': books,
-                'count': count,
-                'category': title,
-                'categories': GetElements.categories(),
-                'auth': GetElements.authors(),
-                'user': GetElements.Getuser(request),
-                'numitem': numitems,
-                'totamt': totamt,
-                'lang': langs,
-                'sort': sort,
-            }           
-        return render(request, 'store/category.html',context)
+                sort = 0
+
+            page = request.GET.get('page', 1)
+
+            paginator = Paginator(books, 6)
+            try:
+                books = paginator.page(page)
+            except PageNotAnInteger:
+                books = paginator.page(1)
+            except EmptyPage:
+                books = paginator.page(paginator.num_pages) 
+
+            langs = Books.objects.order_by().values('language').distinct()
+            count = Books.objects.filter(genre_id__title__icontains=title).count()
+            if request.session.has_key('user'):
+                context = {
+                    'books': books,
+                    'category': title,
+                    'count': count,
+                    'user': GetElements.Getuser(request),
+                    'categories': GetElements.categories(),
+                    'auth': GetElements.authors(),
+                    'numitem': GetElements.GetNumItem(request),
+                    'cartsum': GetElements.GetAmt(request),
+                    'totamt': GetElements.GetAmt(request),
+                    'sort': sort,
+                    'lang': langs,
+                }
+            else:
+                device = request.COOKIES['device']
+                cart = Cart.objects.filter(guest_user=device)
+                if cart:  
+                    cartitems = Cart.objects.filter(guest_user=device).all()
+                    numitems = cartitems.count()
+                    totamt = cartitems.aggregate(Sum('price'))
+                    totamt = totamt.get('price__sum')
+                else:
+                    cartitems = 0
+                    numitems = 0
+                    totamt = 0 
+                context = {
+                    'books': books,
+                    'count': count,
+                    'category': title,
+                    'categories': GetElements.categories(),
+                    'auth': GetElements.authors(),
+                    'user': GetElements.Getuser(request),
+                    'numitem': numitems,
+                    'totamt': totamt,
+                    'lang': langs,
+                    'sort': sort,
+                }           
+            return render(request, 'store/category.html',context)
+        else:
+            messages.error(request, 'No books found!')
+            return redirect('/store/search')      
     else:
         return redirect('/store/search')    
 
