@@ -7,7 +7,6 @@ from django.db.models import Q,Sum
 
 def monthReport(request):
     today = datetime.date.today()
-    print(today)
     current_month = today.month
     current_year = today.year
     return Order.objects.filter(date_added__year=current_year, date_added__month=current_month).aggregate(Sum('total'))

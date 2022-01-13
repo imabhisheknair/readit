@@ -33,9 +33,6 @@ def panel(request):
             year_order = 0
         result = categoryEarnings(request)
         paycount = paymentCount(request)
-        # for res in result:
-        #     print(res['date_added__day'])
-        #     print(res['total__sum'])
         book = OrderItems.objects.values('book_id__genre_id__title').annotate(cat_count=Sum('qty')).order_by('-cat_count')[:6]
         context = {
             'curr_month_order_sum': month_order,

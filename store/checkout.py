@@ -219,7 +219,6 @@ def remove_coupon(request):
 @login_required(login_url='/account/login')
 def createRazorpay(request):
     client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
-        # print(int(grand_total))
     user = request.session['userid']
     coupon = Cart.objects.filter(user_id=user, is_coupon=1)
     if coupon:
@@ -249,7 +248,6 @@ def createRazorpay(request):
 def buynowcoupon(request):
     code = request.GET.get('code')   
     bookid = request.GET.get('product')  
-    print(bookid)   
     user = request.session['userid']
     coupon = Coupon.objects.filter(code=code, is_active=True)
     if coupon:
@@ -336,7 +334,7 @@ def buynowCheckout(request):
 @login_required(login_url='/account/login')
 def createBuynowRazorpay(request):    
     client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
-        # print(int(grand_total))\
+    
     cartid = request.GET.get('product')    
     cartsum = Cart.objects.get(id=cartid)   
     cartamt = cartsum.price
