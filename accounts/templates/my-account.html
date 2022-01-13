@@ -87,7 +87,7 @@
 											<a href="#">Authors</a>
 											<ul class="sub-menu">
                                                 {% for author in auth %}
-												<li><a href="#">{{author.name}}</a></li>
+												<li><a href="/author/{{author.name.split|join:'_'}}">{{author.name}}</a></li>
                                                 {% endfor %}
 											</ul>
 										</li>
@@ -95,7 +95,7 @@
 											<a href="#">Genres</a>
 											<ul class="sub-menu">
                                                 {% for gen in genres %}
-												<li><a href="#">{{gen.title}}</a></li>
+												<li><a href="/category/{{gen.title.split|join:'_'}}">{{gen.title}}</a></li>
                                                 {% endfor %}
 											</ul>
 										</li>
