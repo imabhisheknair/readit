@@ -135,7 +135,6 @@ def store(request):
     recent = Books.objects.order_by('?').first()
     categories = Category.objects.order_by('?')
     offers = Offer.objects.last()
-    
     context = {
         'books': books, 
         'genres': categories, 
@@ -146,6 +145,7 @@ def store(request):
         'recent': recent,
         'offer': offers,
     }
+    return render(request, 'store/index.html', context)
     # else:
     #     if not request.COOKIES['device']:
     #         context = {
@@ -180,7 +180,6 @@ def store(request):
     #             'recent': recent,
     #             'offer': offers,
     #         }  
-    return render(request, 'store/index.html', context)
 
 
 @never_cache
