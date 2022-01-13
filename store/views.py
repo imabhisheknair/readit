@@ -372,7 +372,7 @@ def cart_add(request, id):
                 cartitem = Cart.objects.get(user_id=user, book_id=id)
                 if request.GET.get('qty'):
                     postqty = request.GET.get('qty')
-                    if book.stock - int(postqty) >= 1:
+                    if books.stock - int(postqty) >= 1:
                         qty = cartitem.qty + int(request.GET.get('qty'))
                     else:
                         message = 'Requested quantity '+request.GET.get('qty')+' not available!'
@@ -388,7 +388,7 @@ def cart_add(request, id):
             else:
                 if request.GET.get('qty'):
                     postqty = request.GET.get('qty')
-                    if book.stock - int(postqty) >= 1:
+                    if books.stock - int(postqty) >= 1:
                         qty = request.GET.get('qty')
                         price = price * int(qty)
                     else:
