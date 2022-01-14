@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from accounts.models import Account, Address
@@ -134,7 +133,7 @@ class GetElements:
 
 @never_cache
 def store(request):
-    if request.SESSION.has_key('user'):
+    if request.SESSION.has_key('userid'):
         books = Books.objects.all()
         recent = Books.objects.order_by('?').first()
         categories = Category.objects.order_by('?')
@@ -152,8 +151,6 @@ def store(request):
         return render(request, 'store/index.html', context)
     else:
         if request.COOKIES.get('device', None) is None:
-            return HttpResponse(request, request.COOKIES)
-
             books = Books.objects.all()
             recent = Books.objects.order_by('?').first()
             categories = Category.objects.order_by('?')
@@ -169,7 +166,6 @@ def store(request):
             'offer': offers,
             }
         else: 
-            return HttpResponse(request, request.COOKIES)
             device = request.COOKIES['device']
             cart = Cart.objects.filter(guest_user=device)
             if cart:  
