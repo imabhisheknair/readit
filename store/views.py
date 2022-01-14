@@ -133,65 +133,8 @@ class GetElements:
 
 @never_cache
 def store(request):
-    if request.SESSION.has_key('userid'):
-        books = Books.objects.all()
-        recent = Books.objects.order_by('?').first()
-        categories = Category.objects.order_by('?')
-        offers = Offer.objects.last()
-        context = {
-            'books': books, 
-            'genres': categories, 
-            'auth': GetElements.authors(),
-            'user': GetElements.Getuser(request),
-            'numitem': GetElements.GetNumItem(request),
-            'totamt': GetElements.GetAmt(request),
-            'recent': recent,
-            'offer': offers,
-        }
-        return render(request, 'store/index.html', context)
-    else:
-        if request.COOKIES.get('device', None) is None:
-            books = Books.objects.all()
-            recent = Books.objects.order_by('?').first()
-            categories = Category.objects.order_by('?')
-            offers = Offer.objects.last()
-            context = {
-            'books': books, 
-            'genres': categories, 
-            'auth': GetElements.authors(),
-            'user': GetElements.Getuser(request),
-            'numitem': GetElements.GetNumItem(request),
-            'totamt': GetElements.GetAmt(request),
-            'recent': recent,
-            'offer': offers,
-            }
-        else: 
-            # device = request.COOKIES['device']
-            # cart = Cart.objects.filter(guest_user=device)
-            # if cart:  
-            #     cartitems = Cart.objects.filter(guest_user=device).all()
-            #     numitems = cartitems.count()
-            #     totamt = cartitems.aggregate(Sum('price'))
-            #     totamt = totamt.get('price__sum')
-            # else:
-            #     cartitems = 0
-            #     numitems = 0
-            #     totamt = 0   
-            # books = Books.objects.all()
-            # recent = Books.objects.order_by('?').first()
-            # categories = Category.objects.order_by('?')
-            # offers = Offer.objects.last()     
-            # context = {
-            #     'books': books, 
-            #     'genres': categories, 
-            #     'auth': GetElements.authors(),
-            #     'user': GetElements.Getuser(request),
-            #     'numitem': numitems,
-            #     'totamt': totamt,
-            #     'recent': recent,
-            #     'offer': offers,
-            # }  
-            return redirect('/store/search')
+    return redirect('/store/search')
+
 
 @never_cache
 def book_view(request, id):
