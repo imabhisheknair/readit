@@ -150,7 +150,7 @@ def store(request):
         }
         return render(request, 'store/index.html', context)
     else:
-        if 'device' not in request.COOKIES:
+        if 'device' not in request.COOKIES.keys():
             books = Books.objects.all()
             recent = Books.objects.order_by('?').first()
             categories = Category.objects.order_by('?')
