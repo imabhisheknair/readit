@@ -152,6 +152,8 @@ def store(request):
         return render(request, 'store/index.html', context)
     else:
         if request.COOKIES.get('device', None) is None:
+            return HttpResponse(request, request.COOKIES)
+
             books = Books.objects.all()
             recent = Books.objects.order_by('?').first()
             categories = Category.objects.order_by('?')
