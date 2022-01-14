@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from accounts.models import Account, Address
@@ -166,6 +167,7 @@ def store(request):
             'offer': offers,
             }
         else: 
+            return HttpResponse(request, request.COOKIES)
             device = request.COOKIES['device']
             cart = Cart.objects.filter(guest_user=device)
             if cart:  
