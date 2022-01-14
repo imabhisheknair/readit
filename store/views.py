@@ -133,7 +133,7 @@ class GetElements:
 
 @never_cache
 def store(request):
-    if request.SESSION.has_key('userid'):
+    if not request.SESSION.has_key('userid'):
         books = Books.objects.all()
         recent = Books.objects.order_by('?').first()
         categories = Category.objects.order_by('?')
