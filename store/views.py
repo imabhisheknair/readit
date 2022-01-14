@@ -134,29 +134,11 @@ class GetElements:
 @never_cache
 def store(request):
     if request.SESSION.has_key('userid'):
-        # books = Books.objects.all()
-        # recent = Books.objects.order_by('?').first()
-        # categories = Category.objects.order_by('?')
-        # offers = Offer.objects.last()
-        # context = {
-        #     'books': books, 
-        #     'genres': categories, 
-        #     'auth': GetElements.authors(),
-        #     'user': GetElements.Getuser(request),
-        #     'numitem': GetElements.GetNumItem(request),
-        #     'totamt': GetElements.GetAmt(request),
-        #     'recent': recent,
-        #     'offer': offers,
-        # }
-        # return render(request, 'store/index.html', context)
-        return redirect('/store/search')
-    else:
-        if request.COOKIES.get('device', None) is None:
-            books = Books.objects.all()
-            recent = Books.objects.order_by('?').first()
-            categories = Category.objects.order_by('?')
-            offers = Offer.objects.last()
-            context = {
+        books = Books.objects.all()
+        recent = Books.objects.order_by('?').first()
+        categories = Category.objects.order_by('?')
+        offers = Offer.objects.last()
+        context = {
             'books': books, 
             'genres': categories, 
             'auth': GetElements.authors(),
@@ -165,7 +147,25 @@ def store(request):
             'totamt': GetElements.GetAmt(request),
             'recent': recent,
             'offer': offers,
-            }
+        }
+        return render(request, 'store/index.html', context)
+    else:
+        if request.COOKIES.get('device', None) is None:
+            # books = Books.objects.all()
+            # recent = Books.objects.order_by('?').first()
+            # categories = Category.objects.order_by('?')
+            # offers = Offer.objects.last()
+            # context = {
+            # 'books': books, 
+            # 'genres': categories, 
+            # 'auth': GetElements.authors(),
+            # 'user': GetElements.Getuser(request),
+            # 'numitem': GetElements.GetNumItem(request),
+            # 'totamt': GetElements.GetAmt(request),
+            # 'recent': recent,
+            # 'offer': offers,
+            return redirect('/store/search')
+            
         else: 
             device = request.COOKIES['device']
             cart = Cart.objects.filter(guest_user=device)
