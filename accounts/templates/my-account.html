@@ -504,28 +504,28 @@
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
-			<form class="inline-form" id="addAddr" method="POST" action="address/edit/{{item.id}}"> {% csrf_token %}
-				<div class="mb-3">
+			<form class="inline-form" id="editAddr" method="POST" action="address/edit/{{item.id}}"> {% csrf_token %}
+				<div class="mb-2 col-lg-12 col-12">
 					<label for="exampleInputFname"></label>
 				  <input name="fname" type="text" class="form-control" id="exampleInputFname" aria-describedby="emailHelp" value="{{item.name}}" placeholder="Enter Full Name" required>
 				</div>
-				<div class="col-lg-12 col-12 mb--30">
+				<div class="col-lg-12 col-12 mb-2">
 					<label for="exampleInputState"></label>
 				  <input name="state" value="{{item.state}}" type="text" class="form-control" id="exampleInputState" placeholder="Enter State/Province" required>
 				</div>
-				<div class="col-lg-12 col-12 mb--30">
+				<div class="col-lg-12 col-12 mb-2">
 					<label for="exampleInputCity"></label>
 					<input name="city" value="{{item.city}}" type="text" class="form-control" id="exampleInputCity" placeholder="Enter City" required>
 				  </div>
-				  <div class="col-lg-12 col-12 mb--30">
+				  <div class="col-lg-12 col-12 mb-2">
 					<label for="exampleInputAddress"></label>
 					<textarea name="address" class="form-control" id="exampleInputAddress" cols="30" rows="3" placeholder="Enter Address" required>{{item.address}}</textarea>
 				  </div>
-				  <div class="col-lg-12 col-12 mb--30">
+				  <div class="col-lg-12 col-12 mb-2">
 					<label for="exampleInputZip"></label>
 					<input name="zip" value="{{item.zip}}" type="number" class="form-control" id="exampleInputZip" placeholder="Enter Zip code" required>
 				  </div>
-				  <div class="col-lg-12 col-12 mb--30">
+				  <div class="col-lg-12 col-12 mb-2">
 					<label for="exampleInputPhone"></label>
 					<input name="phone" value="{{item.mobile}}" minlength="10" maxlength="10" type="number" class="form-control" id="exampleInputPhone" placeholder="Enter Phone number" required>
 				  </div>
@@ -537,7 +537,7 @@
 		  <button type="submit" class="btn btn-primary">Save Address</button>
 		</form>
 		<script>
-			$('#addAddr').validate({
+			$('#editAddr').validate({
 				rules: {
 					zip: {
 						minlength: 6,
@@ -596,24 +596,30 @@
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
-			<form class="inline-form" method="POST" action="address/add"> {% csrf_token %}
-				<div class="mb-3">
-				  <input name="fname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Full Name" required>
+			<form class="inline-form" id="addAddr" method="POST" action="address/add"> {% csrf_token %}
+				<div class="mb-2">
+					<label for="exampleInputfname"></label>
+				  <input name="fname" type="text" class="form-control" id="exampleInputfname" aria-describedby="emailHelp" placeholder="Enter Full Name" required>
 				</div>
-				<div class="col-lg-12 col-12 mb--30">
-				  <input name="state" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter State/Province" required>
+				<div class="col-lg-12 col-12 mb-2">
+					<label for="exampleInputstate"></label>
+				  <input name="state" type="text" class="form-control" id="exampleInputstate" placeholder="Enter State/Province" required>
 				</div>
-				<div class="col-lg-12 col-12 mb--30">
-					<input name="city" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter City" required>
+				<div class="col-lg-12 col-12 mb-2">
+					<label for="exampleInputcity"></label>
+					<input name="city" type="text" class="form-control" id="exampleInputcity" placeholder="Enter City" required>
 				  </div>
-				  <div class="col-lg-12 col-12 mb--30">
-					<textarea name="address" class="form-control" id="" cols="30" rows="3" placeholder="Enter Address" required></textarea>
+				  <div class="col-lg-12 col-12 mb-2">
+					<label for="exampleInputaddr"></label>
+					<textarea name="address" class="form-control" id="exampleInputaddr" cols="30" rows="3" placeholder="Enter Address" required></textarea>
 				  </div>
-				  <div class="col-lg-12 col-12 mb--30">
-					<input name="zip" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Zip code">
+				  <div class="col-lg-12 col-12 mb-2">
+					<label for="exampleInputzip"></label>
+					<input name="zip" type="text" class="form-control" id="exampleInputzip" placeholder="Enter Zip code">
 				  </div>
-				  <div class="col-lg-12 col-12 mb--30">
-					<input name="phone" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Phone number" required>
+				  <div class="col-lg-12 col-12 mb-2">
+					<label for="exampleInputphone"></label>
+					<input name="phone" type="text" class="form-control" id="exampleInputphone" placeholder="Enter Phone number" required>
 				  </div>
 				
 			  
@@ -622,6 +628,17 @@
 		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 		  <button type="submit" class="btn btn-primary">Save Address</button>
 		</form>
+		<script>
+			$('#addAddr').validate({
+				rules: {
+					zip: {
+						minlength: 6,
+						maxlength: 6,
+					},
+
+				}
+			});
+		</script>
 		</div>
 	  </div>
 	</div>
