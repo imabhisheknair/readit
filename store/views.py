@@ -371,7 +371,7 @@ def cart_add(request, id):
                         message = 'Requested quantity '+request.GET.get('qty')+' not available!'
                         return JsonResponse({ 'status' : 'fail','message': message})    
                 else:
-                    if books.stock > 0:
+                    if books.stock - cartitem.qty > 0:
                         qty = cartitem.qty + 1 
                     else:
                         message = 'Stock not available!'
