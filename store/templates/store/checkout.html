@@ -32,6 +32,18 @@
 		.paypal-buttons {
 			position: sticky !important;
 		}
+
+		#address {
+			margin-left: -200px !important
+		}
+
+		@media only screen and (max-device-width: 480px) {
+       /* styles for mobile browsers smaller than 480px; (iPhone) */
+	   #address{
+			margin-left: -150px !important;
+			margin-top: 10px;
+		}
+    }
 	</style>
 </head>
 
@@ -332,7 +344,7 @@
 										<label for="order-note">Select Address</label>
 										{% for item in address %}
 										<div class="col-lg-8" style="border: 1px solid;">
-											<input id="address" type="radio" name="address" value="{{item.id}}" style="margin-left: -200px !important;" required checked> 
+											<input id="address" type="radio" name="address" value="{{item.id}}" required checked> 
 											<textarea id="order-note" style="height: 8rem !important; overflow: hidden; resize: none; background: white;" readonly>{{item.name}}, 
 {{item.address}}, {{item.city}}, {{item.state}} {{item.zip}}.
 Mobile: {{item.mobile}}</textarea>
