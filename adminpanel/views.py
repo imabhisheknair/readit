@@ -1,10 +1,11 @@
 import datetime
+import imp
 import os
 import base64
 from django.core.files.base import ContentFile
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from django.core.checks import messages
+from django.contrib import messages 
 from django.db.models.aggregates import Count, Sum
 from django.db.models.query_utils import Q
 from django.http.response import JsonResponse
@@ -145,15 +146,18 @@ def gen_add(request):
             title = request.POST.get('title')   
             gen = Category.objects.filter(title=title)
             if gen:
+                messages.info(request, 'Genre exists!')
                 return redirect(gen_view)
             else:    
                 new = Category()
                 new.title = title
                 new.save() 
+                messages.info(request, 'Genre added!')
                 return redirect(gen_view)   
         else:    
             return render(request, 'add_genres.html')     
     else: 
+        messages.info(request, 'Login first!')
         return redirect(accview.loginpage)         
 
 @login_required(login_url='/account/login')
@@ -163,6 +167,7 @@ def gen_edit(request):
         gen = Category.objects.filter(id=id)
         if gen:
             Category.objects.filter(id=id).update(title=request.POST.get('title'))
+            messages.info(request, 'Genre updated!')
             return redirect(gen_view)
     else:
         id = id = request.GET.get('id')
@@ -177,6 +182,7 @@ def delete_g(request):
     if g:
         Books.objects.filter(genre=id).delete()
         Category.objects.filter(id=id).delete()
+        messages.info(request, 'Genre deleted!')
         return redirect(gen_view) 
 
 @login_required(login_url='/account/login')
