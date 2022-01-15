@@ -17,13 +17,25 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
+        <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+
+    	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+    
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this page -->
     <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
-
+    <style>
+        .error {
+            color: red;
+            font-size: 16px !important;
+        }
+        #addG input {
+            width: 100% !important;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -336,7 +348,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form action="add" method="POST"> {% csrf_token %}
+            <form id="addG" action="add" method="POST"> {% csrf_token %}
                 <div class="form-group">
                   <label for="exampleInputEmail1">Genre Title</label>
                   <input name="title" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Genre title">
@@ -346,6 +358,16 @@
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Add</button>
         </form>
+        <script>
+            $('#addG').validate({
+                rules: {
+                    title: {
+                        required: true,
+                        lettersonly: true
+                    }
+                }
+            });
+        </script>
         </div>
       </div>
     </div>
