@@ -264,7 +264,7 @@ def logout(request):
 def otpverify(request):
     if request.method == 'POST':
         phone = '+91'+request.POST.get('phone')
-        user = Account.objects.filter(phone = phone)
+        user = Account.objects.filter(phone = phone, is_active=1)
         if user:
             request.session['phone_number'] = phone
             verification = twilio_client.verifications(phone, 'sms')

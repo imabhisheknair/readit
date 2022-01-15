@@ -23,16 +23,14 @@
 				<div class="row">
 					<div class="col-lg-12">
 						{% if messages %}
-						{% for message in messages %}
-							{% if message.tags == 'info' %}
-              
-							<script>
-								alert('{{message}}');
-							</script>
-            {% endif %}
-            {% endfor %}
+						<div class="alert alert-success" role="alert">
+							{% for message in messages %}
+							{% if message.tags != 'info %}
+							{{message}}
+							{% endif %}
+						{% endfor %}
+						</div>
 						{% endif %}
-						
 					</div>
 					<div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb--30 mb-lg--0">
 						<!-- Login Form s-->
@@ -74,6 +72,17 @@
 										<input class="mb-3 form-control" type="phone" id="email1"
 											placeholder="Enter your phone number" aria-describedby="basic-addon1" name="phone">
 									</div>
+									{% if messages %}
+									<div class="col-md-12 input-group">
+										{% for msg in messages %}
+											{% if msg.tags == 'info' %}
+												<p style="color: red;">
+													{{msg}}
+												</p>
+											{% endif %}
+										{% endfor %}
+									</div>
+									{% endif %}
 									<div class="col-md-12">
 										<button class="btn btn-outlined">GET OTP</button>
 									</div>
