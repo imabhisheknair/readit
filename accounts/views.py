@@ -270,7 +270,7 @@ def otpverify(request):
             verification = twilio_client.verifications(phone, 'sms')
             return redirect(token_validation)
         else:
-            messages.info(request, 'No such user!')
+            messages.info(request, 'Invalid phone number!')
             return redirect(loginpage)    
     else:
         return redirect(loginpage) 
