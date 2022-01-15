@@ -507,23 +507,23 @@
 			<form class="inline-form" id="addAddr" method="POST" action="address/edit/{{item.id}}"> {% csrf_token %}
 				<div class="mb-3">
 					<label for="exampleInputFname"></label>
-				  <input name="fname" type="text" class="form-control" id="exampleInputFname" aria-describedby="emailHelp" value="{{item.name}}" placeholder="Enter Full Name">
+				  <input name="fname" type="text" class="form-control" id="exampleInputFname" aria-describedby="emailHelp" value="{{item.name}}" placeholder="Enter Full Name" required>
 				</div>
 				<div class="col-lg-12 col-12 mb--30">
 					<label for="exampleInputState"></label>
-				  <input name="state" value="{{item.state}}" type="text" class="form-control" id="exampleInputState" placeholder="Enter State/Province">
+				  <input name="state" value="{{item.state}}" type="text" class="form-control" id="exampleInputState" placeholder="Enter State/Province" required>
 				</div>
 				<div class="col-lg-12 col-12 mb--30">
 					<label for="exampleInputCity"></label>
-					<input name="city" value="{{item.city}}" type="text" class="form-control" id="exampleInputCity" placeholder="Enter City">
+					<input name="city" value="{{item.city}}" type="text" class="form-control" id="exampleInputCity" placeholder="Enter City" required>
 				  </div>
 				  <div class="col-lg-12 col-12 mb--30">
 					<label for="exampleInputAddress"></label>
-					<textarea name="address" class="form-control" id="exampleInputAddress" cols="30" rows="3" placeholder="Enter Address">{{item.address}}</textarea>
+					<textarea name="address" class="form-control" id="exampleInputAddress" cols="30" rows="3" placeholder="Enter Address" required>{{item.address}}</textarea>
 				  </div>
 				  <div class="col-lg-12 col-12 mb--30">
 					<label for="exampleInputZip"></label>
-					<input name="zip" value="{{item.zip}}" type="number" class="form-control" id="exampleInputZip" placeholder="Enter Zip code">
+					<input name="zip" value="{{item.zip}}" type="number" class="form-control" id="exampleInputZip" placeholder="Enter Zip code" required>
 				  </div>
 				  <div class="col-lg-12 col-12 mb--30">
 					<label for="exampleInputPhone"></label>
