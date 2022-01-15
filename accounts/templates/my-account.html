@@ -15,6 +15,18 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/main.css' %}" />
 	<link rel="shortcut icon" type="image/x-icon" href="{% static 'image/favicon.ico' %}">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+	<style>
+       
+        .error {
+            color: red;
+            font-size: 16px !important;
+        }
+        #addBook input, select, textarea {
+            width: 100% !important;
+        }
+        
+    </style>
 </head>
 
 <body>
@@ -459,14 +471,7 @@
 											{%  endif %}<center><p style="color: black;"><strong>Your wishlist is empty!</strong></p></center>
 										</div>
 									</div>
-									<!-- Single Tab Content End -->
-									<!-- Single Tab Content Start -->
-									<div class="tab-pane fade" id="payment-method" role="tabpanel">
-										<div class="myaccount-content">
-											<h3>Payment Method</h3>
-											<p class="saved-message">You Can't Saved Your Payment Method yet.</p>
-										</div>
-									</div>
+				
 									<!-- Single Tab Content End -->
 									<!-- Single Tab Content Start -->
 									<div class="tab-pane fade" id="address-edit" role="tabpanel">
@@ -497,24 +502,30 @@
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
-			<form class="inline-form" method="POST" action="address/edit/{{item.id}}"> {% csrf_token %}
+			<form class="inline-form" id="addAddr" method="POST" action="address/edit/{{item.id}}"> {% csrf_token %}
 				<div class="mb-3">
-				  <input name="fname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{item.name}}" placeholder="Enter Full Name">
+					<label for="exampleInputFname"></label>
+				  <input name="fname" type="text" class="form-control" id="exampleInputFname" aria-describedby="emailHelp" value="{{item.name}}" placeholder="Enter Full Name">
 				</div>
 				<div class="col-lg-12 col-12 mb--30">
-				  <input name="state" value="{{item.state}}" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter State/Province">
+					<label for="exampleInputState"></label>
+				  <input name="state" value="{{item.state}}" type="text" class="form-control" id="exampleInputState" placeholder="Enter State/Province">
 				</div>
 				<div class="col-lg-12 col-12 mb--30">
-					<input name="city" value="{{item.city}}" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter City">
+					<label for="exampleInputCity"></label>
+					<input name="city" value="{{item.city}}" type="text" class="form-control" id="exampleInputCity" placeholder="Enter City">
 				  </div>
 				  <div class="col-lg-12 col-12 mb--30">
-					<textarea name="address" class="form-control" id="" cols="30" rows="3" placeholder="Enter Address">{{item.address}}</textarea>
+					<label for="exampleInputAddress"></label>
+					<textarea name="address" class="form-control" id="exampleInputAddress" cols="30" rows="3" placeholder="Enter Address">{{item.address}}</textarea>
 				  </div>
 				  <div class="col-lg-12 col-12 mb--30">
-					<input name="zip" value="{{item.zip}}" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Zip code">
+					<label for="exampleInputZip"></label>
+					<input name="zip" value="{{item.zip}}" type="number" class="form-control" id="exampleInputZip" placeholder="Enter Zip code">
 				  </div>
 				  <div class="col-lg-12 col-12 mb--30">
-					<input name="phone" value="{{item.mobile}}" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Phone number">
+					<label for="exampleInputPhone"></label>
+					<input name="phone" value="{{item.mobile}}" type="tel" class="form-control" id="exampleInputPhone" placeholder="Enter Phone number" required>
 				  </div>
 				
 			  
@@ -523,6 +534,18 @@
 		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 		  <button type="submit" class="btn btn-primary">Save Address</button>
 		</form>
+		<script>
+			$('#addAddr').validate({
+				rules: {
+					zip: {
+						required: true,
+						numbersonly: true,
+						maxlength: 6,
+						minlength: 6
+					}
+				}
+			});
+		</script>
 		</div>
 	  </div>
 	</div>
@@ -574,22 +597,22 @@
 		<div class="modal-body">
 			<form class="inline-form" method="POST" action="address/add"> {% csrf_token %}
 				<div class="mb-3">
-				  <input name="fname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Full Name">
+				  <input name="fname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Full Name" required>
 				</div>
 				<div class="col-lg-12 col-12 mb--30">
-				  <input name="state" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter State/Province">
+				  <input name="state" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter State/Province" required>
 				</div>
 				<div class="col-lg-12 col-12 mb--30">
-					<input name="city" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter City">
+					<input name="city" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter City" required>
 				  </div>
 				  <div class="col-lg-12 col-12 mb--30">
-					<textarea name="address" class="form-control" id="" cols="30" rows="3" placeholder="Enter Address"></textarea>
+					<textarea name="address" class="form-control" id="" cols="30" rows="3" placeholder="Enter Address" required></textarea>
 				  </div>
 				  <div class="col-lg-12 col-12 mb--30">
 					<input name="zip" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Zip code">
 				  </div>
 				  <div class="col-lg-12 col-12 mb--30">
-					<input name="phone" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Phone number">
+					<input name="phone" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Phone number" required>
 				  </div>
 				
 			  
