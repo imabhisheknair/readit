@@ -39,6 +39,13 @@
 		#address {
 			margin-left: -200px !important
 		}
+		.error {
+            color: red;
+            font-size: 16px !important;
+        }
+        #addBook input, select, textarea {
+            width: 100% !important;
+        }
 
 		@media only screen and (max-device-width: 480px) {
        /* styles for mobile browsers smaller than 480px; (iPhone) */
@@ -517,28 +524,28 @@ Mobile: {{item.mobile}}</textarea>
 			</div>
 			<div class="modal-body">
 				<form class="inline-form" id="addAddr" method="POST" action="/account/address/add"> {% csrf_token %}
-					<div class="mb-3">
+					<div class="mb-1">
 						<label for="exampleInputfname"></label>
 						<input type="hidden" name="next" value="/cart/checkout">	
 					  <input name="fname" type="text" class="form-control" id="exampleInputfname" aria-describedby="emailHelp" placeholder="Enter Full Name" required>
 					</div>
-					<div class="col-lg-12 col-12 mb--30">
+					<div class="col-lg-12 col-12 mb-1">
 						<label for="exampleInputstate"></label>
 					  <input name="state" type="text" class="form-control" id="exampleInputstate" placeholder="Enter State/Province" required>
 					</div>
-					<div class="col-lg-12 col-12 mb--30">
+					<div class="col-lg-12 col-12 mb-1">
 						<label for="exampleInputcity"></label>
 						<input name="city" type="text" class="form-control" id="exampleInputcity" placeholder="Enter City" required>
 					  </div>
-					  <div class="col-lg-12 col-12 mb--30">
+					  <div class="col-lg-12 col-12 mb-1">
 						<label for="exampleInputaddress"></label>
 						<textarea name="address" class="form-control" id="exampleInputaddress" cols="30" rows="3" placeholder="Enter Address" required></textarea>
 					  </div>
-					  <div class="col-lg-12 col-12 mb--30">
+					  <div class="col-lg-12 col-12 mb-1">
 						<label for="exampleInputzip"></label>  
 						<input name="zip" type="number" class="form-control" maxlength="6" minlength="6" id="exampleInputzip" placeholder="Enter Zip code" required>
 					  </div>
-					  <div class="col-lg-12 col-12 mb--30">
+					  <div class="col-lg-12 col-12 mb-1">
 						<label for="exampleInputphone"></label>
 						<input name="phone" type="number" class="form-control" maxlength="10" minlength="10" id="exampleInputphone" placeholder="Enter Phone number" required>
 					  </div>
