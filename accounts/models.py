@@ -68,3 +68,14 @@ class Address(models.Model):
     address = models.CharField(max_length=50)
     mobile = PhoneNumberField(max_length = 50)
 
+
+class MyAddress(models.Model):
+    user = models.ForeignKey(Account, on_delete=CASCADE)
+    name = models.CharField(max_length=30, default='name')
+    state = models.CharField(max_length=25)
+    city = models.CharField(max_length=25)
+    zip = models.IntegerField()
+    address = models.CharField(max_length=50)
+    mobile = PhoneNumberField(max_length = 50)
+
+

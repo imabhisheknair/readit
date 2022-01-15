@@ -1,6 +1,6 @@
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
-from accounts.models import Account, Address
+from accounts.models import Account, Address, MyAddress
 from adminpanel.models import Books, Authors, Category, Offer
 from .models import Cart, Coupon_entry, Wishlist
 from django.db.models import Q,Sum
@@ -73,9 +73,9 @@ class GetElements:
         return Authors.objects.all()
     def Getaddr(request):
             user = request.session['userid']
-            address = Address.objects.filter(user_id=user)
+            address = MyAddress.objects.filter(user_id=user)
             if address:
-                address = Address.objects.filter(user_id=user).all()
+                address = MyAddress.objects.filter(user_id=user).all()
                 return address
             else:
                 return 0      

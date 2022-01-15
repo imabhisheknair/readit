@@ -4,7 +4,7 @@ from django.db.models.aggregates import Sum
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 
-from accounts.models import Account, Address
+from accounts.models import Account, Address, MyAddress
 from adminpanel.models import Books, Category
 from store.models import Cart, Coupon, Coupon_entry, CouponOrders, Order, OrderItems
 import razorpay
@@ -59,9 +59,9 @@ class GetElements:
         # return relbooks
     def Getaddr(request):
             user = request.session['userid']
-            address = Address.objects.filter(user_id=user)
+            address = MyAddress.objects.filter(user_id=user)
             if address:
-                address = Address.objects.filter(user_id=user).all()
+                address = MyAddress.objects.filter(user_id=user).all()
                 return address
             else:
                 return 0  

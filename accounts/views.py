@@ -11,7 +11,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from store import views as storeview
 from adminpanel import views as adminview
-from .models import Account, Address
+from .models import Account, Address, MyAddress
 from django.contrib import messages
 from . import twilio_client
 
@@ -95,9 +95,9 @@ def myaccount(request):
         useremail = request.session['user']
         user = Account.objects.get(email = useremail)
         def Getaddr():
-            address = Address.objects.filter(user_id=user.id)
+            address = MyAddress.objects.filter(user_id=user.id)
             if address:
-                address = Address.objects.filter(user_id=user.id).all()
+                address = MyAddress.objects.filter(user_id=user.id).all()
                 return address
             else:
                 return 0    
@@ -228,6 +228,8 @@ def saveaddress(request):
     user = Account.objects.get(email=request.session['user'])
     id = user.id
     Address(name=fname, state=state, city=city, address=address, zip=zip, mobile=phone, user_id=id).save()
+    MyAddress(name=fname, state=state, city=city, address=address, zip=zip, mobile=phone, user_id=id).save()
+
     if request.POST.get('next'):
         next = request.POST.get('next')
         return redirect(next)
@@ -242,13 +244,15 @@ def address_edit(request, id):
     phone = request.POST.get('phone')
     zip = request.POST.get('zip')
     Address.objects.filter(id=id).update(name=fname, state=state, city=city, address=address, zip=zip, mobile=phone)
+    MyAddress.objects.filter(id=id).update(name=fname, state=state, city=city, address=address, zip=zip, mobile=phone)
+
     return redirect(myaccount)
 
 @login_required(login_url='/account/login')
 def address_delete(request, id):
-    add = Address.objects.filter(id=id)
+    add = MyAddress.objects.filter(id=id)
     if add:
-        Address.objects.filter(id=id).delete()
+        MyAddress.objects.filter(id=id).delete()
         messages.info(request, 'Address deleted!')
         return redirect(myaccount)
 
