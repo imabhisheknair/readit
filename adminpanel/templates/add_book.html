@@ -326,7 +326,7 @@
                                             <label for="exampleInputStock">Book Stock</label>
                                             <input name="stock" type="number" class="form-control"
                                                 id="exampleInputStock" aria-describedby="emailHelp"
-                                                placeholder="Enter book stock" required>
+                                                placeholder="Enter book stock" min="0" required>
                                         </div>
 
                                 </div>
@@ -336,7 +336,7 @@
                                         <label for="exampleInputPrice">Book Price</label>
                                         <input name="price" type="number" onkeyup="return caldiscount()"
                                             class="form-control" id="exampleInputPrice" aria-describedby="emailHelp"
-                                            placeholder="Enter book price" required>
+                                            placeholder="Enter book price" min="1" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputDisc">Book Discount in %</label>
@@ -347,7 +347,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputSprice">Book selling price</label>
                                         <input name="lastp" type="text" class="form-control" id="exampleInputSprice"
-                                            aria-describedby="emailHelp" readonly>
+                                            aria-describedby="emailHelp" min="1" readonly>
                                     </div>
 
                                     <label for="exampleInputEmail1">Book Image</label>
