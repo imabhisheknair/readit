@@ -352,6 +352,8 @@ def books_edit(request, id):
                 sprice = request.POST.get('lastp')
         else:
             sprice = request.POST.get('lastp')   
+            is_catoffer = False
+            newoffer = False
         id = request.POST.get('id')
         prod = Books.objects.get(id=id)
         prod.title = request.POST.get('title')
