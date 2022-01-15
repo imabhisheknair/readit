@@ -23,6 +23,7 @@
 
     <!-- Custom styles for this page -->
     <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
 
 </head>
 
@@ -246,16 +247,16 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <div class="row">
-                            <div class="col-lg-6">
                             {% if books %}
-                            <form action="" method="POST" name="addb" enctype="multipart/form-data"> {% csrf_token %}
-                                <div class="form-group">
-                                  <label for="exampleInputEmail1">Book Title</label>
-                                  <input name="title" value="{{ books.title }}" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter book title">
+                            <form action="" method="POST" id="addBook" name="addb" enctype="multipart/form-data" class="row"> {% csrf_token %}
+                                
+                            <div class="col-lg-6">
+                           <div class="form-group">
+                                  <label for="exampleInputTitle">Book Title</label>
+                                  <input name="title" value="{{ books.title }}" type="text" class="form-control" id="exampleInputTitle" aria-describedby="emailHelp" placeholder="Enter book title">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Book Genre</label>
+                                    <label for="exampleInputGenre">Book Genre</label>
                                     <select class="form-control" id="exampleInputEmail1" name="genre" id="">
                                         <option value="">Select Genre</option>
                                         {% if genre %}
@@ -267,8 +268,8 @@
                                 </div>
                                 <input type="hidden" name="id" value="{{ books.id }}">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Book Author</label>
-                                    <select class="form-control" id="exampleInputEmail1" name="author" id="">
+                                    <label for="exampleInputAuthor">Book Author</label>
+                                    <select class="form-control" id="exampleInputAuthor" name="author" id="">
                                         <option value="">Select Author</option>
                                         {% if auth %}
                                             {% for a in auth %}
@@ -280,27 +281,27 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Book description</label>
-                                    <textarea class="form-control" id="exampleInputEmail1" name="desc" id="" cols="30" rows="6">{{ books.desc }}</textarea>
+                                    <label for="exampleInputDesc">Book description</label>
+                                    <textarea class="form-control" id="exampleInputDesc" name="desc" id="" cols="30" rows="6">{{ books.desc }}</textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Book Publisher</label>
-                                    <input name="publisher" type="text" value="{{ books.publisher }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter book price">
+                                    <label for="exampleInputPub">Book Publisher</label>
+                                    <input name="publisher" type="text" value="{{ books.publisher }}" class="form-control" id="exampleInputPub" aria-describedby="emailHelp" placeholder="Enter book price">
 
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Book Language</label>
-                                    <input name="language" type="text" value="{{ books.language }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter book price">
+                                    <label for="exampleInputLang">Book Language</label>
+                                    <input name="language" type="text" value="{{ books.language }}" class="form-control" id="exampleInputLang" aria-describedby="emailHelp" placeholder="Enter book price">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Available Stock</label>
-                                    <input name="stock" type="text" value="{{ books.stock }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter book price">
+                                    <label for="exampleInputStock">Available Stock</label>
+                                    <input name="stock" type="text" min="0" value="{{ books.stock }}" class="form-control" id="exampleInputStock" aria-describedby="emailHelp" placeholder="Enter book price">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Book Price</label>
-                                    <input name="price" type="text" onkeyup="return caldiscount()" value="{{ books.price }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter book price">
+                                    <label for="exampleInputPrice">Book Price</label>
+                                    <input name="price" type="text" min="1" onkeyup="return caldiscount()" value="{{ books.price }}" class="form-control" id="exampleInputPrice" aria-describedby="emailHelp" placeholder="Enter book price">
 
                                 </div>
                                 <script>
@@ -341,13 +342,13 @@
                                     
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Book Discount</label>
-                                    <input name="discount" type="text" onkeyup="return caldiscount()" value="{{ books.discount }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Discount in percentage">
+                                    <label for="exampleInputDisc">Book Discount</label>
+                                    <input name="discount" type="number" min="0" onkeyup="return caldiscount()" value="{{ books.discount }}" class="form-control" id="exampleInputDisc" aria-describedby="emailHelp" placeholder="Enter Discount in percentage">
 
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Book selling price</label>
-                                    <input name="lastp" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" readonly>
+                                    <label for="exampleInputSprice">Book selling price</label>
+                                    <input name="lastp" type="number" class="form-control" id="exampleInputSprice" aria-describedby="emailHelp" min="1" readonly>
                                 </div>
                                 
                               {% endif %}
@@ -355,9 +356,14 @@
                             <div class="col-lg-12">
                                 <center>
                             <button type="submit" class="btn btn-primary">Update Book Details</button>
-                        </form></center>
+                        </center>
                             </div>
+                        </form>
                             <script>
+                                $('#addBook').validate();
+                            </script>
+                            <script>
+                               
                                 function caldiscount(){
                                     var price = document.addb.price.value;
                                     var discount = document.addb.discount.value;
@@ -377,7 +383,7 @@
                                     }
                                 }
                             </script>
-                    </div>
+                
                 </div>
                 </div>
                 <!-- /.container-fluid -->
