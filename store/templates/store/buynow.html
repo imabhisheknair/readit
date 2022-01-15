@@ -381,7 +381,7 @@ Mobile: {{item.mobile}}</textarea>
 			<div class="modal-body">
 				<form class="inline-form" method="POST" action="/account/address/add"> {% csrf_token %}
 					<div class="mb-3">
-						<input type="hidden" name="next" value="/cart/checkout">	
+						<input type="hidden" name="next" value="/checkout">	
 					  <input name="fname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Full Name">
 					</div>
 					<div class="col-lg-12 col-12 mb--30">
