@@ -43,6 +43,9 @@
 			margin-left: -150px !important;
 			margin-top: 10px;
 		}
+		.addList {
+			margin-top: 20px;
+		}
     }
 	</style>
 </head>
@@ -343,7 +346,7 @@
 										{% if address != 0 %}
 										<label for="order-note">Select Address</label>
 										{% for item in address %}
-										<div class="col-lg-8" style="border: 1px solid;">
+										<div class="col-lg-8 addList" style="border: 1px solid;">
 											<input id="address" type="radio" name="address" value="{{item.id}}" required checked> 
 											<textarea id="order-note" style="height: 8rem !important; overflow: hidden; resize: none; background: white;" readonly>{{item.name}}, 
 {{item.address}}, {{item.city}}, {{item.state}} {{item.zip}}.
