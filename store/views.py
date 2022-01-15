@@ -124,6 +124,7 @@ def store(request):
             'recent': recent,
             'offer': offers,
         }  
+        return render(request, 'store/index.html', context)
 
 
 @never_cache
