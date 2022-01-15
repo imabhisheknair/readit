@@ -82,7 +82,7 @@ class GetElements:
 
 
 def store(request):
-    if request.SESSION.has_key('userid'):
+    if request.session.has_key('userid'):
         books = Books.objects.all()
         recent = Books.objects.order_by('?').first()
         categories = Category.objects.order_by('?')
