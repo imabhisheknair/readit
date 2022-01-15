@@ -535,16 +535,7 @@
 		  <button type="submit" class="btn btn-primary">Save Address</button>
 		</form>
 		<script>
-			$('#addAddr').validate({
-				rules: {
-					zip: {
-						required: true,
-						numbersonly: true,
-						maxlength: 6,
-						minlength: 6
-					}
-				}
-			});
+			$('#addAddr').validate();
 		</script>
 		</div>
 	  </div>
