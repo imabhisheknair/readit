@@ -666,4 +666,35 @@ def checkout(request):
             return redirect('/book/'+title)
         return render(request, 'store/buynow.html', context)
     else:
-        return redirect('/cart')    
+        item = Cart.objects.last()
+        user = request.session['userid']
+        if item:
+            bookid = item.id
+            qty = item.qty  
+            book = Books.objects.get(id=item.book_id)
+            if (book.stock - int(qty)) >= 1: 
+                coupon = Cart.objects.filter(id=item.id, is_coupon=1)
+                if coupon:
+                    code = Coupon_entry.objects.filter(user_id=user).last()
+                    coupon_code = code.coupon.code
+                    discount = code.discount_price
+                else:
+                    coupon = 0
+                    coupon_code = 'None'
+                    discount = 0.00
+                context = {
+                    'item': item,
+                    'user': GetElements.Getuser(request),
+                    'address': GetElements.Getaddr(request),
+                    'coupon':coupon,
+                    'coupon_code': coupon_code,
+                    'discount': discount,
+                    'numitem': GetElements.GetNumItem(request),
+                    'cartsum': GetElements.GetAmt(request),
+                    'totamt': GetElements.GetAmt(request),
+                }
+            else:
+                messages.error(request, 'Book out of stock')
+                title = book.title.replace(' ', '_')
+                return redirect('/book/'+title)
+            return render(request, 'store/buynow.html', context)    
