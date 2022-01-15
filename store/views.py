@@ -628,6 +628,8 @@ def cart_plus(request, id):
 @login_required(login_url='/account/register')
 @never_cache
 def checkout(request):
+    if not request.session.has_key('user'):
+        return redirect('/account/register')
     if request.POST:
         qty = request.POST.get('qty')
         bookid = request.POST.get('bookid')
