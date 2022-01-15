@@ -315,13 +315,17 @@ def cart_add(request, id):
                 cartitem = Cart.objects.get(user_id=user, book_id=id)
                 if request.GET.get('qty'):
                     postqty = request.GET.get('qty')
-                    if books.stock - int(postqty) >= 1:
+                    if books.stock - cartitem.qty - int(postqty) >= 1:
                         qty = cartitem.qty + int(request.GET.get('qty'))
                     else:
                         message = 'Requested quantity '+request.GET.get('qty')+' not available!'
                         return JsonResponse({ 'status' : 'fail','message': message})
                 else:
-                    qty = cartitem.qty + 1 
+                    if books.stock - cartitem.qty >= 1:
+                        qty = cartitem.qty + 1 
+                    else:
+                        message = 'Stock not available!'
+                        return JsonResponse({ 'status' : 'fail','message': message})    
                 cartitem.qty = qty
                 cartitem.price = cartitem.qty * price
                 cartitem.save()
@@ -338,7 +342,11 @@ def cart_add(request, id):
                         message = 'Requested quantity '+request.GET.get('qty')+' not available!'
                         return JsonResponse({ 'status' : 'fail','message': message})    
                 else:
-                    qty = 1
+                    if books.stock > 0:
+                        qty = 1
+                    else:
+                        message = 'Stock not available!'
+                        return JsonResponse({ 'status' : 'fail','message': message})     
                 Cart(user_id=user, book_id=id, price=price,qty=qty).save()  
                 numitem = GetElements.GetNumItem(request)
                 cartsum = GetElements.GetAmt(request)
@@ -357,13 +365,17 @@ def cart_add(request, id):
                 cartitem = Cart.objects.get(guest_user=device, book_id=id)
                 if request.GET.get('qty'):
                     postqty = request.GET.get('qty')
-                    if books.stock - int(postqty) >= 1:
+                    if books.stock - cartitem.qty - int(postqty) >= 1:
                         qty = cartitem.qty + int(request.GET.get('qty'))
                     else:
                         message = 'Requested quantity '+request.GET.get('qty')+' not available!'
                         return JsonResponse({ 'status' : 'fail','message': message})    
                 else:
-                    qty = cartitem.qty + 1 
+                    if books.stock > 0:
+                        qty = cartitem.qty + 1 
+                    else:
+                        message = 'Stock not available!'
+                        return JsonResponse({ 'status' : 'fail','message': message})      
                 cartitem.qty = qty
                 cartitem.price = cartitem.qty * price
                 cartitem.save()
@@ -382,7 +394,11 @@ def cart_add(request, id):
                         message = 'Requested quantity '+request.GET.get('qty')+' not available!'
                         return JsonResponse({ 'status' : 'fail','message': message})      
                 else:
-                    qty = 1
+                    if books.stock > 0:
+                        qty = 1
+                    else:
+                        message = 'Stock not available!'
+                        return JsonResponse({ 'status' : 'fail','message': message})                            
                 Cart(guest_user=device, book_id=id, price=price,qty=qty).save() 
                 cartitems = Cart.objects.filter(guest_user=device).all()
                 numitems = cartitems.count()
