@@ -254,11 +254,11 @@
                             <div class="col-lg-6">
                            <div class="form-group">
                                   <label for="exampleInputTitle">Book Title</label>
-                                  <input name="title" value="{{ books.title }}" type="text" class="form-control" id="exampleInputTitle" aria-describedby="emailHelp" placeholder="Enter book title">
+                                  <input name="title" value="{{ books.title }}" type="text" class="form-control" id="exampleInputTitle" aria-describedby="emailHelp" placeholder="Enter book title" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputGenre">Book Genre</label>
-                                    <select class="form-control" id="exampleInputEmail1" name="genre" id="">
+                                    <select class="form-control" id="exampleInputEmail1" name="genre" id="" required>
                                         <option value="">Select Genre</option>
                                         {% if genre %}
                                             {% for g in genre %}
@@ -270,7 +270,7 @@
                                 <input type="hidden" name="id" value="{{ books.id }}">
                                 <div class="form-group">
                                     <label for="exampleInputAuthor">Book Author</label>
-                                    <select class="form-control" id="exampleInputAuthor" name="author" id="">
+                                    <select class="form-control" id="exampleInputAuthor" name="author" id="" required>
                                         <option value="">Select Author</option>
                                         {% if auth %}
                                             {% for a in auth %}
@@ -283,26 +283,26 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputDesc">Book description</label>
-                                    <textarea class="form-control" id="exampleInputDesc" name="desc" id="" cols="30" rows="6">{{ books.desc }}</textarea>
+                                    <textarea class="form-control" id="exampleInputDesc" name="desc" id="" cols="30" rows="6" required>{{ books.desc }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPub">Book Publisher</label>
-                                    <input name="publisher" type="text" value="{{ books.publisher }}" class="form-control" id="exampleInputPub" aria-describedby="emailHelp" placeholder="Enter book price">
+                                    <input name="publisher" type="text" value="{{ books.publisher }}" class="form-control" id="exampleInputPub" aria-describedby="emailHelp" placeholder="Enter book price" required>
 
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputLang">Book Language</label>
-                                    <input name="language" type="text" value="{{ books.language }}" class="form-control" id="exampleInputLang" aria-describedby="emailHelp" placeholder="Enter book price">
+                                    <input name="language" type="text" value="{{ books.language }}" class="form-control" id="exampleInputLang" aria-describedby="emailHelp" placeholder="Enter book price" required>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="exampleInputStock">Available Stock</label>
-                                    <input name="stock" type="text" min="0" value="{{ books.stock }}" class="form-control" id="exampleInputStock" aria-describedby="emailHelp" placeholder="Enter book price">
+                                    <input name="stock" type="text" min="0" value="{{ books.stock }}" class="form-control" id="exampleInputStock" aria-describedby="emailHelp" placeholder="Enter book price" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPrice">Book Price</label>
-                                    <input name="price" type="text" min="1" onkeyup="return caldiscount()" value="{{ books.price }}" class="form-control" id="exampleInputPrice" aria-describedby="emailHelp" placeholder="Enter book price">
+                                    <input name="price" type="text" min="1" onkeyup="return caldiscount()" value="{{ books.price }}" class="form-control" id="exampleInputPrice" aria-describedby="emailHelp" placeholder="Enter book price" required>
 
                                 </div>
                                 <script>
@@ -339,17 +339,17 @@
                                     
                                     <br>
                                     <label for="exampleInputEmail1">Book Image</label>
-                                    <input name="image" type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  accept="image/*" onChange="validateAndUpload(this);">
+                                    <input name="image" type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  accept="image/*" onChange="validateAndUpload(this);" required>
                                     
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputDisc">Book Discount</label>
-                                    <input name="discount" type="number" min="0" onkeyup="return caldiscount()" value="{{ books.discount }}" class="form-control" id="exampleInputDisc" aria-describedby="emailHelp" placeholder="Enter Discount in percentage">
+                                    <input name="discount" type="number" min="0" onkeyup="return caldiscount()" value="{{ books.discount }}" class="form-control" id="exampleInputDisc" aria-describedby="emailHelp" placeholder="Enter Discount in percentage" required>
 
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputSprice">Book selling price</label>
-                                    <input name="lastp" type="number" class="form-control" id="exampleInputSprice" aria-describedby="emailHelp" min="1" readonly>
+                                    <input name="lastp" type="number" class="form-control" id="exampleInputSprice" aria-describedby="emailHelp" min="1" required readonly>
                                 </div>
                                 
                               {% endif %}
