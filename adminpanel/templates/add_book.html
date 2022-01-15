@@ -30,6 +30,7 @@
     <!-- Custom styles for this page -->
     <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
     <style>
         /* Ensure the size of the image fit the container perfectly */
          img {
@@ -263,7 +264,7 @@
                         <div class="card-body">
                             <div class="">
 
-                                <form class="row" name="addb" action="" method="POST" autocomplete="off"
+                                <form class="row" name="addb" id="addBook" action="" method="POST" autocomplete="off"
                                 enctype="multipart/form-data"> 
                                 <div class="col-lg-6">
                                         {% csrf_token %}
@@ -374,6 +375,9 @@
                                     </center>
                                 </div>
                             </form>
+                            <script>
+                                $('#addBook').validate();
+                            </script>
                                 <div class="modal fade" id="modal" tabindex="-1" role="dial=og"
                                     aria-labelledby="modalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-md" role="document">
