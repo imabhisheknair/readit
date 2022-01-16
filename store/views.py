@@ -87,6 +87,11 @@ def store(request):
         recent = Books.objects.order_by('?').first()
         categories = Category.objects.order_by('?')
         offers = Offer.objects.last()
+        Bmax = Books.objects.filter(genre_id=offers.category_id).aggregate(max('discount'))
+        if Bmax.get('discount__max') > offers.discount:
+            off = Bmax.get('discount__max')
+        else:
+            off = offers.discount    
         context = {
             'books': books, 
             'genres': categories, 
@@ -96,6 +101,7 @@ def store(request):
             'totamt': GetElements.GetAmt(request),
             'recent': recent,
             'offer': offers,
+            'off': off
         }
         return render(request, 'store/index.html', context)
     else:
