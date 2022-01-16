@@ -7,7 +7,7 @@ from django.db.models import Q,Sum
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-
+from django.db.models import Max
 
 class GetElements:
     def Getuser(request):
@@ -87,7 +87,7 @@ def store(request):
         recent = Books.objects.order_by('?').first()
         categories = Category.objects.order_by('?')
         offers = Offer.objects.last()
-        Bmax = Books.objects.filter(genre_id=offers.category_id).aggregate(max('discount'))
+        Bmax = Books.objects.filter(genre_id=offers.category_id).aggregate(Max('discount'))
         if Bmax.get('discount__max') > offers.discount:
             off = Bmax.get('discount__max')
         else:
@@ -119,7 +119,12 @@ def store(request):
         books = Books.objects.all()
         recent = Books.objects.order_by('?').first()
         categories = Category.objects.order_by('?')
-        offers = Offer.objects.last()     
+        offers = Offer.objects.last()    
+        Bmax = Books.objects.filter(genre_id=offers.category_id).aggregate(Max('discount'))
+        if Bmax.get('discount__max') > offers.discount:
+            off = Bmax.get('discount__max')
+        else:
+            off = offers.discount   
         context = {
             'books': books, 
             'genres': categories, 
@@ -129,6 +134,7 @@ def store(request):
             'totamt': totamt,
             'recent': recent,
             'offer': offers,
+            'off': off,
         }  
         return render(request, 'store/index.html', context)
 
