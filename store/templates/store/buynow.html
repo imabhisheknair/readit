@@ -37,7 +37,7 @@
 		}
 		
 		#address {
-			margin-left: -200px;
+			margin-left: -200px !important;
 		}
 		.error {
             color: red;
@@ -207,7 +207,7 @@
 										<label for="order-note">Select Address</label>
 										{% for item in address %}
 										<div class="col-lg-8 addList" style="border: 1px solid;">
-											<input id="address" type="radio" name="address" value="{{item.id}}" style="margin-left: -200px !important;" required checked> 
+											<input id="address" type="radio" name="address" value="{{item.id}}" required checked> 
 											<textarea id="order-note" style="height: 8rem !important; overflow: hidden; resize: none; background: white;" readonly>{{item.name}}, 
 {{item.address}}, {{item.city}}, {{item.state}} {{item.zip}}.
 Mobile: {{item.mobile}}</textarea>
