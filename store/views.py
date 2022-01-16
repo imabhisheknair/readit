@@ -82,6 +82,7 @@ class GetElements:
 
 
 def store(request):
+    category_list = Category.objects.order_by('?')[:4]
     if request.session.has_key('user') or (request.COOKIES.get('device', None) is None):
         books = Books.objects.all()
         recent = Books.objects.order_by('?').first()
@@ -96,6 +97,7 @@ def store(request):
         context = {
             'books': books, 
             'genres': categories, 
+            'genlist': category_list,
             'auth': GetElements.authors(),
             'user': GetElements.Getuser(request),
             'numitem': GetElements.GetNumItem(request),
@@ -129,7 +131,8 @@ def store(request):
         off = int(off)    
         context = {
             'books': books, 
-            'genres': categories, 
+            'genres': categories,
+            'genlist': category_list,
             'auth': GetElements.authors(),
             'user': GetElements.Getuser(request),
             'numitem': numitems,
