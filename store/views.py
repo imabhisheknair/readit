@@ -91,7 +91,8 @@ def store(request):
         if Bmax.get('discount__max') > offers.discount:
             off = Bmax.get('discount__max')
         else:
-            off = offers.discount    
+            off = offers.discount  
+        off = int(off)      
         context = {
             'books': books, 
             'genres': categories, 
@@ -124,7 +125,8 @@ def store(request):
         if Bmax.get('discount__max') > offers.discount:
             off = Bmax.get('discount__max')
         else:
-            off = offers.discount   
+            off = offers.discount 
+        off = int(off)    
         context = {
             'books': books, 
             'genres': categories, 
