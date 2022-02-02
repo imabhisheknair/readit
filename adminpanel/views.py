@@ -152,7 +152,7 @@ def gen_add(request):
                 new = Category()
                 new.title = title
                 new.save() 
-                messages.info(request, 'Genre added!')
+                messages.info(request, 'Genre added successfully!')
                 return redirect(gen_view)   
         else:    
             return render(request, 'add_genres.html')     
